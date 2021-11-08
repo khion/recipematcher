@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Recipe Matcher</string>
+
+    <string name="welcome">Welcome\nto\nRecipe Matcher</string>
+    <string name="sign_in">Sign in with Google</string>
+    <string name="server_client_id"></string>
+</resources>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "609805005282",
+    "project_id": "recipe-matcher-5acd3",
+    "storage_bucket": "recipe-matcher-5acd3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:609805005282:android:90937f8853483b285649bb",
+        "android_client_info": {
+          "package_name": "ca.bcit.recipematcher"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "609805005282-n2gcjaeje3tjsp7ptbn174q7p4ddsclg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjy_XsJOcqTU0nHOBeD0nGoVxhFj9zHw8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "609805005282-n2gcjaeje3tjsp7ptbn174q7p4ddsclg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
