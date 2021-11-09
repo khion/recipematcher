@@ -1,43 +1,37 @@
 package ca.bcit.recipematcher;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
 
-import com.google.firebase.auth.FirebaseAuth;
-
-public class MainActivity extends AppCompatActivity {
+public class UserProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_user_profile);
 
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_bar, menu);
-        return super.onCreateOptionsMenu(menu);
+    public void onUploadRecipeClick(View view) {
+        Intent intent = new Intent(this, UploadRecipeActivity.class);
+        startActivity(intent);
     }
 
-    public void onLogoutClick(MenuItem menu) {
+    public void onLogoutClick(View view) {
 //        FirebaseAuth fAuth = FirebaseAuth.getInstance();
 //        fAuth.signOut();
         Intent intent = new Intent(this, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
-    }
-
-    public void onUserProfileClick(MenuItem menu) {
-//        FirebaseAuth fAuth = FirebaseAuth.getInstance();
-        Intent intent = new Intent(this, UserProfileActivity.class);
-        startActivity(intent);
     }
 }
