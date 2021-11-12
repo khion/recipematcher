@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/userProfileButton"
+        android:layout_margin="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onUserProfileClick"
+        app:showAsAction="ifRoom"
+        android:title="@string/user" />
+
+    <item
+        android:id="@+id/logoutButton"
+        android:layout_margin="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onLogoutClick"
+        app:showAsAction="ifRoom"
+        android:title="@string/logout" />
+</menu>
