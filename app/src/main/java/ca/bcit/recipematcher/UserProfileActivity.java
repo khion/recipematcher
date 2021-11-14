@@ -29,7 +29,7 @@ public class UserProfileActivity extends AppCompatActivity {
     public void onLogoutClick(View view) {
 //        FirebaseAuth fAuth = FirebaseAuth.getInstance();
 //        fAuth.signOut();
-        Intent intent = new Intent(this, LoginActivity.class);
+        Intent intent = new Intent(this, LandingActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
