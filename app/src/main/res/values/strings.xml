@@ -10,13 +10,6 @@
     <string name="auth_failed">Authentication failed, check your email and password or sign up</string>
     <string name="minimum_password">Password too short, enter minimum 6 characters!</string>
 
-    <string name="recipe_name">Recipe Name</string>
-    <string name="recipe_instructions">Instruction details</string>
-    <string name="add_step">add step</string>
-    <string name="step_1">Step 1:</string>
-    <string name="upload_dish_text">Upload a photo of your dish!</string>
-    <string name="select_photo">Select photo</string>
-    <string name="ingredients">Ingredients:</string>
     <string name="upload_a_recipe">Upload a recipe</string>
     <string name="password_hint">Password</string>
     <string name="login_text">Sign In</string>
@@ -25,5 +18,24 @@
     <string name="signup_button_text">Sign Up</string>
     <string name="login_prompt">Already have an account?</string>
 
+    <!--Upload Recipe Activity-->
+    <string name="recipe_name">Recipe Name</string>
+    <string name="upload_dish_text">Upload a photo of your dish!</string>
+    <string name="select_photo">Select photo</string>
+    <string name="ingredients">Ingredients:</string>
+    <string name="step_1">Step 1:</string>
+    <string name="recipe_instructions">Instruction details</string>
+    <string name="add_step">add step</string>
+    <string name="upload_button_text">Upload</string>
+    <string name="category_tv">Category</string>
+    <string name="category_prompt">Choose a Category</string>
+    <string-array name="category_array">
+        <item>Pasta</item>
+        <item>Asian</item>
+        <item>Main</item>
+        <item>Dessert</item>
+        <item>Hot</item>
+        <item>Cold</item>
+    </string-array>
 
 </resources>
