@@ -17,6 +17,16 @@
     <string name="name_text">Name</string>
     <string name="signup_button_text">Sign Up</string>
     <string name="login_prompt">Already have an account?</string>
+    <string name="upload_txt">Upload</string>
+    <string name="search_txt">Search</string>
+    <string name="hungry_text">Hungry?</string>
+    <string name="pasta_txt">Pasta</string>
+    <string name="asian_txt">Asian</string>
+    <string name="main_txt">Main</string>
+    <string name="deser_txt">Desert</string>
+    <string name="dessert_txt">Dessert</string>
+    <string name="hot_txt">Hot</string>
+    <string name="cold_txt">Cold</string>
 
     <!--Upload Recipe Activity-->
     <string name="recipe_name">Recipe Name</string>
