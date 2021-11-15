@@ -20,10 +20,38 @@
         android:orientation="vertical">
 
         <EditText
+            android:id="@+id/upload_recipe_name_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:hint="@string/recipe_name" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="1">
+
+            <TableRow android:id="@+id/recipe_category_table">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/category_tv"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/category_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:entries="@array/category_array"
+                    android:prompt="@string/category_prompt"
+                    android:spinnerMode="dialog"
+                    android:textAlignment="center" />
+            </TableRow>
+        </TableLayout>
+
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -46,46 +74,59 @@
             android:text="@string/select_photo" />
     </LinearLayout>
 
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#FFCD82"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:layout_height="match_parent" >
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:hint="@string/ingredients" />
-
-        <TableLayout
-            android:id="@+id/recipe_instructions"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:stretchColumns="1">
+            android:background="#FFCD82"
+            android:orientation="vertical"
+            android:padding="10dp">
 
-            <TableRow>
+            <EditText
+                android:id="@+id/upload_recipe_ingredients_et"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:hint="@string/ingredients" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/step_1" />
+            <TableLayout
+                android:id="@+id/recipe_instructions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="1">
 
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/recipe_instructions" />
-            </TableRow>
-        </TableLayout>
+                <TableRow>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:onClick="onAddStepClick"
-            android:text="@string/add_step" />
-    </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/step_1" />
 
+                    <EditText
+                        android:id="@+id/upload_recipe_step1_et"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/recipe_instructions" />
+                </TableRow>
+            </TableLayout>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:onClick="onAddStepClick"
+                android:text="@string/add_step" />
+
+            <Button
+                android:id="@+id/btnUpload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/upload_button_text" />
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

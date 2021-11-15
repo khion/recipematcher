@@ -1,5 +1,6 @@
 package ca.bcit.recipematcher;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,19 +20,33 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class UploadRecipeActivity extends AppCompatActivity {
+
     ImageView viewImage;
     Button selectImage;
+    Button uploadRecipe;
+    Spinner categorySpinner;
     int stepNum = 1;
+    List<EditText> stepsList;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,15 +61,76 @@ public class UploadRecipeActivity extends AppCompatActivity {
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        stepsList = new ArrayList<>();
+
         // Image Selector
         selectImage = (Button) findViewById(R.id.btnSelectPhoto);
+        uploadRecipe = findViewById(R.id.btnUpload);
         viewImage = (ImageView) findViewById(R.id.viewImage);
+        categorySpinner = findViewById(R.id.category_spinner);
         selectImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selectImage();
             }
         });
+
+        uploadRecipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditText recipeNameET = findViewById(R.id.upload_recipe_name_et);
+                EditText ingredientsET = findViewById(R.id.upload_recipe_ingredients_et);
+                EditText stepET = findViewById(R.id.upload_recipe_step1_et);
+                List<String> stepListStrings = new ArrayList<>();
+
+
+                String recipeName = recipeNameET.getText().toString();
+                String ingredients = ingredientsET.getText().toString();
+                String step = stepET.getText().toString();
+                String category = String.valueOf(categorySpinner.getSelectedItem());
+                stepListStrings.add(step);
+                for (EditText et: stepsList) {
+                    stepListStrings.add(et.getText().toString());
+                }
+                Recipe recipe = new Recipe(recipeName, ingredients, category, stepListStrings);
+                db.collection("recipes")
+                        .add(recipe)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                Log.d("Tag", "DocumentSnapshot added with ID: " + documentReference.getId());
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w("Tag", "Error adding document", e);
+                            }
+                        });
+            }
+        });
+
+//        // Create a new user with a first and last name
+//        Map<String, Object> user = new HashMap<>();
+//        user.put("first", "Ada");
+//        user.put("last", "Lovelace");
+//        user.put("born", 1815);
+//
+//// Add a new document with a generated ID
+//        db.collection("users")
+//                .add(user)
+//                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                    @Override
+//                    public void onSuccess(DocumentReference documentReference) {
+//                        Log.d("Tag", "DocumentSnapshot added with ID: " + documentReference.getId());
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Log.w("Tag", "Error adding document", e);
+//                    }
+//                });
     }
 
     @Override
@@ -160,6 +236,7 @@ public class UploadRecipeActivity extends AppCompatActivity {
         EditText recipeStepInput = new EditText(this);
         recipeStepInput.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
         recipeStepInput.setHint("Instruction details");
+        stepsList.add(recipeStepInput);
 
         // Add to instructions
         instructionRow.addView(recipeStepText);
