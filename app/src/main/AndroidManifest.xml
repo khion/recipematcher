@@ -18,6 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RecipeMatcher">
         <activity
+            android:name=".SearchActivity"
+            android:exported="false" />
+        <activity
             android:name=".RegisterActivity"
             android:exported="false" />
         <activity

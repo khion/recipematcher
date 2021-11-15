@@ -5,14 +5,57 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context=".MainActivity">
 
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="140dp"
+        android:layout_height="130dp"
+        android:elevation="4dp"
+        app:lottie_rawRes="@raw/cooking"
+        android:layout_gravity="center_horizontal"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <Button
+            android:id="@+id/upload_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/upload_txt"
+            android:drawableStart="@drawable/ic_upload"
+            android:textAllCaps="false"/>
+
+        <Button
+            android:id="@+id/search_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/search_txt"
+            android:drawableStart="@drawable/ic_search"
+            android:onClick="onSearchClick"
+            android:textAllCaps="false"/>
+
+
+    </LinearLayout>
+
+
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="recipes here?"/>
+
+
+
 </LinearLayout>
