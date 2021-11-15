@@ -16,13 +16,14 @@
         <entry key="app/src/main/res/drawable/custom_searchList.xml" value="0.3296296296296296" />
         <entry key="app/src/main/res/drawable/custom_tiles.xml" value="0.2453125" />
         <entry key="app/src/main/res/drawable/custon_search_tiles.xml" value="0.3296296296296296" />
+        <entry key="app/src/main/res/drawable/ic_add.xml" value="0.3296296296296296" />
         <entry key="app/src/main/res/font/font.xml" value="0.365625" />
         <entry key="app/src/main/res/layout/activity_landing.xml" value="0.30625" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.30625" />
-        <entry key="app/src/main/res/layout/activity_search.xml" value="0.234375" />
+        <entry key="app/src/main/res/layout/activity_search.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_user_profile.xml" value="0.2484375" />
         <entry key="app/src/main/res/layout/list_layout.xml" value="0.334375" />
         <entry key="app/src/main/res/layout/toolbar.xml" value="0.33541666666666664" />

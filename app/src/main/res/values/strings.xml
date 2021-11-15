@@ -17,7 +17,7 @@
     <string name="upload_dish_text">Upload a photo of your dish!</string>
     <string name="select_photo">Select photo</string>
     <string name="ingredients">Ingredients:</string>
-    <string name="upload_a_recipe">Upload a recipe</string>
+    <string name="upload_a_recipe">Upload recipe</string>
     <string name="password_hint">Password</string>
     <string name="login_text">Sign In</string>
     <string name="create_account_text">Create An Account</string>
@@ -26,14 +26,16 @@
     <string name="login_prompt">Already have an account?</string>
     <string name="upload_txt">Upload</string>
     <string name="search_txt">Search</string>
-    <string name="hungry_text">Hungry?</string>
+    <string name="hungry_text">Type to search</string>
     <string name="pasta_txt">Pasta</string>
     <string name="asian_txt">Asian</string>
     <string name="main_txt">Main</string>
-    <string name="deser_txt">Desert</string>
     <string name="dessert_txt">Dessert</string>
     <string name="hot_txt">Hot</string>
     <string name="cold_txt">Cold</string>
+    <string name="recipe_uploaded">Recipe List</string>
+    <string name="favourites">Favourites</string>
+    <string name="host_txt">Hosting</string>
 
 
 </resources>

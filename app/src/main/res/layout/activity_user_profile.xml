@@ -11,30 +11,136 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_image"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_person"
+        app:civ_border_color="@color/white"
+        app:civ_border_width="2dp"
+        />
+
+    <TextView
+        android:id="@+id/edit_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="-25dp"
+        android:layout_marginStart="230dp"
+        app:drawableStartCompat="@drawable/ic_add"
+        app:drawableTint="@color/dark_blue" />
+
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:text="User Name"
+        android:textStyle="bold"
+        tools:ignore="RtlCompat" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:background="@drawable/custom_input_field"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/email"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingStart="10dp"
+            android:drawablePadding="10dp"
+            android:text="@string/email_hint"
+            android:textSize="18sp"
+            app:drawableStartCompat="@drawable/ic_email" />
+
+        <TextView
+            android:id="@+id/user_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="7dp"
+            android:textSize="18sp"
+            android:text="" />
+
+    </LinearLayout>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:layout_marginTop="10dp"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="user profile picture from firebase?" />
-
         <Button
+            android:id="@+id/upload_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onUploadRecipeClick"
-            android:text="@string/upload_a_recipe">
-
-        </Button>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onLogoutClick"
-            android:text="@string/logout" />
+            android:text="@string/upload_a_recipe"
+            android:drawableStart="@drawable/ic_upload"
+            android:textAllCaps="false"/>
     </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/collection_btn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="150dp"
+            android:layout_margin="3dp"
+            android:textStyle="bold"
+            android:background="@drawable/custom_tiles"
+            android:text="@string/recipe_uploaded" />
+        <Button
+            android:id="@+id/favourites_btn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="150dp"
+            android:layout_margin="3dp"
+            android:textStyle="bold"
+            android:background="@drawable/custom_tiles"
+            android:text="@string/favourites" />
+
+        <Button
+            android:id="@+id/host_btn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="150dp"
+            android:layout_margin="3dp"
+            android:textStyle="bold"
+            android:background="@drawable/custom_tiles"
+            android:text="@string/host_txt" />
+    </LinearLayout>
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:onClick="onLogoutClick"
+        android:layout_gravity="center"
+        android:textAllCaps="false"
+        android:text="@string/logout" />
 
 </LinearLayout>

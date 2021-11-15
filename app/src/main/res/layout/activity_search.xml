@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true">
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context=".SearchActivity">
 
@@ -26,45 +34,131 @@
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
         android:background="@drawable/custom_input_field"
-        android:textColorHint="@color/teal_700" />
+        android:textColorHint="@color/dark_grey"
+        android:autofillHints="" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:paddingStart="5dp"
         android:paddingEnd="5dp"
+
         android:orientation="horizontal">
 
-        <Button
+        <androidx.cardview.widget.CardView
             android:id="@+id/pasta_btn"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="150dp"
             android:layout_margin="3dp"
-            android:textStyle="bold"
-            android:background="@drawable/custom_tiles"
-            android:text="@string/pasta_txt" />
+            app:cardCornerRadius="15dp">
 
-        <Button
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/light"
+
+                android:padding="10dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/pasta1"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/pasta"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pasta_txt"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/pasta1"/>
+
+            </RelativeLayout>
+
+
+
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
             android:id="@+id/asian_btn"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="150dp"
             android:layout_margin="3dp"
-            android:textStyle="bold"
-            android:background="@drawable/custom_tiles"
-            android:text="@string/asian_txt" />
+            app:cardCornerRadius="15dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/light"
 
-        <Button
+                android:padding="10dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/asian1"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/asian"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/asian_txt"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/asian1"/>
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
             android:id="@+id/main_btn"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="150dp"
             android:layout_margin="3dp"
-            android:textStyle="bold"
-            android:background="@drawable/custom_tiles"
-            android:text="@string/main_txt" />
+            app:cardCornerRadius="15dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/light"
+
+                android:padding="10dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/main1"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/main"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/main_txt"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/main1"/>
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
     </LinearLayout>
 
     <LinearLayout
@@ -74,34 +168,116 @@
         android:paddingEnd="5dp"
 
         android:orientation="horizontal">
-        <Button
+
+        <androidx.cardview.widget.CardView
             android:id="@+id/dessert_btn"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="150dp"
             android:layout_margin="3dp"
-            android:textStyle="bold"
-            android:background="@drawable/custom_tiles"
-            android:text="@string/dessert_txt" />
-        <Button
+            app:cardCornerRadius="15dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/light"
+
+                android:padding="10dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/dessert1"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/desserts"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dessert_txt"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/dessert1"/>
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
             android:id="@+id/hot_btn"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="150dp"
             android:layout_margin="3dp"
-            android:textStyle="bold"
-            android:background="@drawable/custom_tiles"
-            android:text="@string/hot_txt" />
+            app:cardCornerRadius="15dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/light"
 
-        <Button
+                android:padding="10dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/hot1"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/hot"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hot_txt"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/hot1"/>
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
             android:id="@+id/cold_btn"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="150dp"
             android:layout_margin="3dp"
-            android:textStyle="bold"
-            android:background="@drawable/custom_tiles"
-            android:text="@string/cold_txt" />
+            app:cardCornerRadius="15dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/light"
+
+                android:padding="10dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/cold1"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/cold"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/main_txt"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/cold1"/>
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
     </LinearLayout>
 
     <ListView
@@ -117,6 +293,7 @@
 
 
 
-
-
 </LinearLayout>
+
+
+</ScrollView>
