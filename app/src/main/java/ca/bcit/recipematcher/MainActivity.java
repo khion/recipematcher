@@ -1,6 +1,7 @@
 package ca.bcit.recipematcher;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +18,10 @@ public class MainActivity extends AppCompatActivity {
 
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.recipe_placeholder, new RecipeDisplayFragment());
+        ft.commit();
     }
 
     @Override
