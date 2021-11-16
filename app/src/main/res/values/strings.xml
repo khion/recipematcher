@@ -36,6 +36,18 @@
     <string name="recipe_uploaded">Recipe List</string>
     <string name="favourites">Favourites</string>
     <string name="host_txt">Hosting</string>
+    <string name="upload_button_text">Upload</string>
+    <string name="category_tv">Category</string>
+    <string name="category_prompt">Choose a Category</string>
+    <string-array name="category_array">
+        <item>Pasta</item>
+        <item>Asian</item>
+        <item>Main</item>
+        <item>Dessert</item>
+        <item>Hot</item>
+        <item>Cold</item>
+    </string-array>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
