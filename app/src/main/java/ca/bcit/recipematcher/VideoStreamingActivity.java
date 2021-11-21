@@ -1,28 +1,32 @@
 package ca.bcit.recipematcher;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity {
-
+public class VideoStreamingActivity extends AppCompatActivity {
     private Menu menu_bar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_video_streaming);
 
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        // add back arrow to toolbar
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
 
     }
 
@@ -35,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     public void onLogoutClick(MenuItem menu) {
         FirebaseAuth fAuth = FirebaseAuth.getInstance();
         fAuth.signOut();
-        Intent intent = new Intent(MainActivity.this, LandingActivity.class);
+        Intent intent = new Intent(VideoStreamingActivity.this, LandingActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
@@ -50,26 +54,16 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         Intent intent;
         if (currentUser != null) {
-            intent = new Intent(this, UserProfileActivity.class);
+            intent = new Intent(VideoStreamingActivity.this, UserProfileActivity.class);
         } else {
-            intent = new Intent(this, LandingActivity.class);
+            intent = new Intent(VideoStreamingActivity.this, LandingActivity.class);
         }
         startActivity(intent);
     }
 
-    public void onSearchClick(View view) {
-        Intent intent = new Intent(this, SearchActivity.class);
-        startActivity(intent);
-
-    }
-
-    public void onUploadClick(View view) {
-        Intent intent = new Intent(this, UploadRecipeActivity.class);
-        startActivity(intent);
-    }
-
-    public void onStreamingClick(View view) {
-        Intent intent = new Intent(this, VideoStreamingActivity.class);
-        startActivity(intent);
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

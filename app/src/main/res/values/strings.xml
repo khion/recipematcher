@@ -42,6 +42,9 @@
     <string name="category_tv">Category</string>
     <string name="category_prompt">Choose a Category</string>
     <string name="save_txt">save</string>
+    <string name="video_txt">Tutorials</string>
+    
+    
     <string-array name="category_array">
         <item>Pasta</item>
         <item>Asian</item>

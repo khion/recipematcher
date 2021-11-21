@@ -21,12 +21,13 @@
         <entry key="app/src/main/res/font/font.xml" value="0.365625" />
         <entry key="app/src/main/res/layout/activity_landing.xml" value="0.30625" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.234375" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.30625" />
         <entry key="app/src/main/res/layout/activity_search.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_upload_recipe.xml" value="0.2786458333333333" />
         <entry key="app/src/main/res/layout/activity_user_profile.xml" value="0.2484375" />
+        <entry key="app/src/main/res/layout/activity_video_streaming.xml" value="0.2390625" />
         <entry key="app/src/main/res/layout/list_layout.xml" value="0.334375" />
         <entry key="app/src/main/res/layout/toolbar.xml" value="0.33541666666666664" />
         <entry key="app/src/main/res/menu/menu_bar.xml" value="0.2682291666666667" />

@@ -38,6 +38,17 @@
             android:textAllCaps="false"/>
 
         <Button
+            android:id="@+id/video_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/video_txt"
+            android:drawableStart="@drawable/ic_video"
+            android:onClick="onStreamingClick"
+            android:textAllCaps="false"/>
+
+
+        <Button
             android:id="@+id/search_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -46,6 +57,7 @@
             android:drawableStart="@drawable/ic_search"
             android:onClick="onSearchClick"
             android:textAllCaps="false"/>
+
 
 
     </LinearLayout>

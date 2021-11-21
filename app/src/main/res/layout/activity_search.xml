@@ -81,10 +81,6 @@
                     android:layout_below="@+id/pasta1"/>
 
             </RelativeLayout>
-
-
-
-
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
