@@ -29,6 +29,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -44,6 +45,7 @@ public class UploadRecipeActivity extends AppCompatActivity {
     Button uploadRecipe;
     Spinner categorySpinner;
     int stepNum = 1;
+    Uri selectedImage;
     List<EditText> stepsList;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -158,7 +160,10 @@ public class UploadRecipeActivity extends AppCompatActivity {
                     dialog.dismiss();
                 }
             }
+
+
         });
+
         builder.show();
     }
 
@@ -201,7 +206,7 @@ public class UploadRecipeActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             } else if (requestCode == 2) {
-                Uri selectedImage = data.getData();
+                selectedImage = data.getData();
                 String[] filePath = {MediaStore.Images.Media.DATA};
                 Cursor c = getContentResolver().query(selectedImage, filePath, null, null, null);
                 c.moveToFirst();
@@ -210,6 +215,7 @@ public class UploadRecipeActivity extends AppCompatActivity {
                 String picturePath = c.getString(columnIndex);
                 c.close();
 
+                Picasso.get().load(selectedImage).into(viewImage);
                 Bitmap thumbnail = (BitmapFactory.decodeFile(picturePath));
                 Log.w("Path of image from gallery:", picturePath + "");
                 viewImage.setImageBitmap(thumbnail);

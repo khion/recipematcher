@@ -1,6 +1,7 @@
 package ca.bcit.recipematcher;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +9,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class MainActivity extends AppCompatActivity {
+
+    private Menu menu_bar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
     }
 
     @Override
@@ -26,17 +33,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onLogoutClick(MenuItem menu) {
-//        FirebaseAuth fAuth = FirebaseAuth.getInstance();
-//        fAuth.signOut();
-        Intent intent = new Intent(this, LandingActivity.class);
+        FirebaseAuth fAuth = FirebaseAuth.getInstance();
+        fAuth.signOut();
+        Intent intent = new Intent(MainActivity.this, LandingActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
     }
 
+    /**
+     * This will check if the user signed in and if user is signed in,
+     * it will direct to UserProfile Activity be the button is clicked
+     * @param menu menu
+     */
     public void onUserProfileClick(MenuItem menu) {
-//        FirebaseAuth fAuth = FirebaseAuth.getInstance();
-        Intent intent = new Intent(this, UserProfileActivity.class);
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        Intent intent;
+        if (currentUser != null) {
+            intent = new Intent(this, UserProfileActivity.class);
+        } else {
+            intent = new Intent(this, LandingActivity.class);
+        }
         startActivity(intent);
     }
 
@@ -44,5 +61,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, SearchActivity.class);
         startActivity(intent);
 
+    }
+
+    public void onUploadClick(View view) {
+        Intent intent = new Intent(this, UploadRecipeActivity.class);
+        startActivity(intent);
     }
 }

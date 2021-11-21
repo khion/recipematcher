@@ -21,6 +21,8 @@
         app:civ_border_width="2dp"
         />
 
+
+
     <TextView
         android:id="@+id/edit_image"
         android:layout_width="match_parent"
@@ -33,6 +35,18 @@
         app:drawableStartCompat="@drawable/ic_add"
         app:drawableTint="@color/dark_blue" />
 
+    <Button
+        android:id="@+id/save_image"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:background="@drawable/custom_btn2"
+        android:textColor="@color/white"
+        android:layout_marginTop="3dp"
+        android:text="@string/save_txt"
+        android:textAllCaps="false"/>
+
+
     <TextView
         android:id="@+id/user_name"
         android:layout_width="match_parent"
@@ -40,15 +54,16 @@
         android:layout_gravity="center_vertical"
         android:textAlignment="center"
         android:textSize="20sp"
-        android:text="User Name"
+        android:text=""
         android:textStyle="bold"
         tools:ignore="RtlCompat" />
+
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="5dp"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"
@@ -91,6 +106,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/upload_a_recipe"
+            android:onClick="onUploadRecipeClick"
             android:drawableStart="@drawable/ic_upload"
             android:textAllCaps="false"/>
     </LinearLayout>
@@ -133,11 +149,18 @@
             android:text="@string/host_txt" />
     </LinearLayout>
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"/>
+
+
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="5dp"
         android:onClick="onLogoutClick"
         android:layout_gravity="center"
         android:textAllCaps="false"

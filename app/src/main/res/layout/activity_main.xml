@@ -33,6 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/upload_txt"
+            android:onClick="onUploadClick"
             android:drawableStart="@drawable/ic_upload"
             android:textAllCaps="false"/>
 
@@ -51,10 +52,50 @@
 
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="recipes here?"/>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/pasta_btn"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="3dp"
+        app:cardCornerRadius="15dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/light"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/pasta1"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/pasta"/>
+
+            <TextView
+                android:id="@+id/recipe_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pasta_txt"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/pasta1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ingredients"
+                android:textSize="15sp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/recipe_name"/>
+
+        </RelativeLayout>
+
+
+
+
+    </androidx.cardview.widget.CardView>
 
 
 
