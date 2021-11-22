@@ -14,10 +14,12 @@
         <entry key="app/src/main/res/drawable-v24/pagebackground.xml" value="0.3515625" />
         <entry key="app/src/main/res/drawable-v24/toolbar.xml" value="0.3515625" />
         <entry key="app/src/main/res/drawable/custom_input_field.xml" value="0.31743589743589745" />
+        <entry key="app/src/main/res/drawable/custom_input_field2.xml" value="0.21574074074074073" />
         <entry key="app/src/main/res/drawable/custom_searchList.xml" value="0.3296296296296296" />
         <entry key="app/src/main/res/drawable/custom_tiles.xml" value="0.2453125" />
         <entry key="app/src/main/res/drawable/custon_search_tiles.xml" value="0.3296296296296296" />
         <entry key="app/src/main/res/drawable/ic_add.xml" value="0.3296296296296296" />
+        <entry key="app/src/main/res/drawable/ic_search2.xml" value="0.2712962962962963" />
         <entry key="app/src/main/res/font/font.xml" value="0.365625" />
         <entry key="app/src/main/res/layout/activity_landing.xml" value="0.30625" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.25" />
@@ -29,6 +31,7 @@
         <entry key="app/src/main/res/layout/activity_user_profile.xml" value="0.2484375" />
         <entry key="app/src/main/res/layout/activity_video_streaming.xml" value="0.2390625" />
         <entry key="app/src/main/res/layout/list_layout.xml" value="0.334375" />
+        <entry key="app/src/main/res/layout/list_search_layout.xml" value="0.33" />
         <entry key="app/src/main/res/layout/toolbar.xml" value="0.33541666666666664" />
         <entry key="app/src/main/res/menu/menu_bar.xml" value="0.2682291666666667" />
       </map>

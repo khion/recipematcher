@@ -1,5 +1,6 @@
 package ca.bcit.recipematcher;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,9 +10,15 @@ import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
+
 
 public class VideoStreamingActivity extends AppCompatActivity {
     private Menu menu_bar;
+
+    YouTubePlayerView youTubePlayerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +35,18 @@ public class VideoStreamingActivity extends AppCompatActivity {
         }
 
 
+        youTubePlayerView=findViewById(R.id.stream1);
+        getLifecycle().addObserver(youTubePlayerView);
+
+
+        youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+            @Override
+            public void onApiChange(@NonNull YouTubePlayer youTubePlayer) {
+                super.onApiChange(youTubePlayer);
+
+
+            }
+        });
     }
 
     @Override

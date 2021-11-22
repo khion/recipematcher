@@ -43,8 +43,10 @@
     <string name="category_prompt">Choose a Category</string>
     <string name="save_txt">save</string>
     <string name="video_txt">Tutorials</string>
-    
-    
+    <string name="send_txt">Send</string>
+    <string name="rating_text">"Rating: "</string>
+
+
     <string-array name="category_array">
         <item>Pasta</item>
         <item>Asian</item>

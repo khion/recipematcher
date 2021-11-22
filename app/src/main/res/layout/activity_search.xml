@@ -13,271 +13,63 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context=".SearchActivity">
 
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 
-    <EditText
-        android:id="@+id/editName"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:ems="10"
-        android:hint="@string/hungry_text"
-        android:inputType="textLongMessage"
-        android:drawableStart="@drawable/ic_search"
-        android:drawablePadding="10dp"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:background="@drawable/custom_input_field"
-        android:textColorHint="@color/dark_grey"
-        android:autofillHints="" />
-
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="140dp"
+        android:layout_height="130dp"
+        android:elevation="4dp"
+        app:lottie_rawRes="@raw/cooking"
+        android:layout_gravity="center_horizontal"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/edit_Search"
+            android:layout_width="0dp"
+            android:layout_weight="1.5"
+            android:layout_height="40dp"
+            android:ems="10"
+            android:hint="@string/hungry_text"
+            android:inputType="textLongMessage"
+            android:drawableStart="@drawable/ic_search"
+            android:drawablePadding="10dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:background="@drawable/custom_input_field"
+            android:textColorHint="@color/dark_grey"
+            android:autofillHints="" />
+
+        <Button
+            android:id="@+id/search_btn"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="40dp"
+            android:text="@string/send_txt"
+            android:onClick="onSearchClick"
+            android:textAllCaps="false"/>
+
+    </LinearLayout>
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center|bottom"
         android:layout_marginTop="10dp"
-        android:paddingStart="5dp"
-        android:paddingEnd="5dp"
-
-        android:orientation="horizontal">
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/pasta_btn"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="150dp"
-            android:layout_margin="3dp"
-            app:cardCornerRadius="15dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/light"
-
-                android:padding="10dp">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/pasta1"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_centerHorizontal="true"
-                    android:src="@drawable/pasta"/>
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/pasta_txt"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/pasta1"/>
-
-            </RelativeLayout>
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/asian_btn"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="150dp"
-            android:layout_margin="3dp"
-            app:cardCornerRadius="15dp">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/light"
-
-                android:padding="10dp">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/asian1"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_centerHorizontal="true"
-                    android:src="@drawable/asian"/>
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/asian_txt"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/asian1"/>
-
-            </RelativeLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/main_btn"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="150dp"
-            android:layout_margin="3dp"
-            app:cardCornerRadius="15dp">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/light"
-
-                android:padding="10dp">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/main1"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_centerHorizontal="true"
-                    android:src="@drawable/main"/>
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/main_txt"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/main1"/>
-
-            </RelativeLayout>
-
-        </androidx.cardview.widget.CardView>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="5dp"
-        android:paddingEnd="5dp"
-
-        android:orientation="horizontal">
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/dessert_btn"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="150dp"
-            android:layout_margin="3dp"
-            app:cardCornerRadius="15dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/light"
-
-                android:padding="10dp">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/dessert1"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_centerHorizontal="true"
-                    android:src="@drawable/desserts"/>
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/dessert_txt"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/dessert1"/>
-
-            </RelativeLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/hot_btn"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="150dp"
-            android:layout_margin="3dp"
-            app:cardCornerRadius="15dp">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/light"
-
-                android:padding="10dp">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/hot1"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_centerHorizontal="true"
-                    android:src="@drawable/hot"/>
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/hot_txt"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/hot1"/>
-
-            </RelativeLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cold_btn"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="150dp"
-            android:layout_margin="3dp"
-            app:cardCornerRadius="15dp">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/light"
-
-                android:padding="10dp">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/cold1"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_centerHorizontal="true"
-                    android:src="@drawable/cold"/>
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/main_txt"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/cold1"/>
-
-            </RelativeLayout>
-
-        </androidx.cardview.widget.CardView>
-
-    </LinearLayout>
-
+        android:visibility="gone" />
     <ListView
-        android:id="@+id/lvCovidReport"
+        android:id="@+id/searchList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="30sp"
@@ -287,9 +79,6 @@
         android:layout_margin="10dp"
         android:text=""/>
 
-
-
 </LinearLayout>
-
 
 </ScrollView>
