@@ -19,7 +19,7 @@
     <string name="login_prompt">Already have an account?</string>
     <string name="upload_txt">Upload</string>
     <string name="search_txt">Search</string>
-    <string name="hungry_text">Type to search</string>
+    <string name="hungry_text">Search by name/ingredients</string>
     <string name="pasta_txt">Pasta</string>
     <string name="asian_txt">Asian</string>
     <string name="main_txt">Main</string>
