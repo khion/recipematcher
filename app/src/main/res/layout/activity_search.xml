@@ -61,13 +61,82 @@
             android:textAllCaps="false"/>
 
     </LinearLayout>
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_gravity="center|bottom"
-        android:layout_marginTop="10dp"
-        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="@string/category_tv"/>
+
+        <Button
+            android:id="@+id/pasta_btn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:text="@string/pasta_txt"
+            android:onClick="onPastaClick"
+            android:textAllCaps="false"/>
+        <Button
+            android:id="@+id/asian_btn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:text="@string/asian_txt"
+            android:onClick="onAsianClick"
+            android:textAllCaps="false"/>
+        <Button
+            android:id="@+id/main_btn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:text="@string/main_txt"
+            android:onClick="onMainClick"
+            android:textAllCaps="false"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/dessert_btn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:text="@string/dessert_txt"
+            android:onClick="onDessertClick"
+            android:textAllCaps="false"/>
+        <Button
+            android:id="@+id/hot_btn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:text="@string/hot_txt"
+            android:onClick="onHotClick"
+            android:textAllCaps="false"/>
+        <Button
+            android:id="@+id/cold_btn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:text="@string/main_txt"
+            android:onClick="onColdClick"
+            android:textAllCaps="false"/>
+
+    </LinearLayout>
+
     <ListView
         android:id="@+id/searchList"
         android:layout_width="match_parent"

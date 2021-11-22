@@ -6,10 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
 import androidx.annotation.NonNull;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -34,6 +37,7 @@ public class RecipeSearchAdapter extends ArrayAdapter<Recipe> {
         TextView tvRecipeName = listViewItem.findViewById(R.id.recipe_name);
         TextView tvCategory = listViewItem.findViewById(R.id.category_text);
         TextView tvRating = listViewItem.findViewById(R.id.rating_txt);
+        ImageView recipeImage = listViewItem.findViewById(R.id.image_view);
 
         Recipe recipe = recipeList.get(position);
         tvRecipeName.setText(recipe.getRecipeName());
