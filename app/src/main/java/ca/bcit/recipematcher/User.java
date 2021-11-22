@@ -1,10 +1,14 @@
 package ca.bcit.recipematcher;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
     private String name;
     private String email;
     private String phone;
     private String image;
+    private List<String> recipes;
 
     public User() {
 
@@ -14,6 +18,7 @@ public class User {
         this.email = email;
         this.phone = phone;
         this.image = image;
+        this.recipes = new ArrayList<>();
     }
 
     public String getName() {
@@ -27,6 +32,8 @@ public class User {
     public String getPhone() {
         return phone;
     }
+
+    public List<String> getRecipes() { return recipes; }
 
     public void setName(String name) {
         this.name = name;
@@ -47,4 +54,6 @@ public class User {
     public void setImage(String image) {
         this.image = image;
     }
+
+    public void setRecipes(List<String> recipes) { this.recipes = recipes; };
 }

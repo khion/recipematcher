@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -31,6 +32,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -51,12 +53,17 @@ public class UploadRecipeActivity extends AppCompatActivity {
     Button selectImage;
     Button uploadRecipe;
     Spinner categorySpinner;
+
     int stepNum = 1;
+
     Uri selectedImage;
     List<EditText> stepsList;
+
+
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private StorageReference mStorageRef;
     private FirebaseUser user;
+
 
 
     @Override
@@ -142,6 +149,16 @@ public class UploadRecipeActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
+                        DocumentReference userRef = db.collection("users").document(userUid);
+                        // Add the id of the recipe to the user's "recipes" array
+                        userRef.update("recipes", FieldValue.arrayUnion(documentReference.getId())).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Intent i = new Intent(UploadRecipeActivity.this, MainActivity.class);
+                                startActivity(i);
+                                finish();
+                            }
+                        });
                         Log.d("Tag", "DocumentSnapshot added with ID: " + documentReference.getId());
                     }
                 })
