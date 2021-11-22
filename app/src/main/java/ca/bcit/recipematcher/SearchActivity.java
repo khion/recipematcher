@@ -16,6 +16,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -23,10 +24,13 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +57,6 @@ public class SearchActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
-
         search_view = findViewById(R.id.edit_Search);
         mref = FirebaseFirestore.getInstance();
         lvRecipeList = findViewById(R.id.searchList);
@@ -66,7 +69,7 @@ public class SearchActivity extends AppCompatActivity {
 
                 showRecipeDialog(recipe.getRecipeName(),
                         recipe.getCategory(),
-                        recipe.getIngredients());
+                        recipe.getIngredients(), recipe.getImageURL());
             }
         });
 
@@ -224,12 +227,22 @@ public class SearchActivity extends AppCompatActivity {
     }
 
 
-    public void showRecipeDialog(final String recipeName, String recipeCategory, String recipeIngredients) {
+    /**
+     * This will show dialog of the recipe information.
+     * @param recipeName recipeName
+     * @param recipeCategory recipeCategory
+     * @param recipeIngredients recipeIngredients
+     * @param imageURl imageURL
+     */
+    public void showRecipeDialog(final String recipeName, String recipeCategory, String recipeIngredients, String imageURl) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 
         LayoutInflater inflater = getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.search_dialog, null);
         dialogBuilder.setView(dialogView);
+
+        final ImageView imageView = dialogView.findViewById(R.id.image_id);
+        Picasso.get().load(imageURl).into(imageView);
 
         final TextView tvRecipeName = dialogView.findViewById(R.id.recipe_name);
         tvRecipeName.setText(recipeName);
@@ -263,11 +276,7 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-
     }
-
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -276,8 +285,8 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void onLogoutClick(MenuItem menu) {
-//        FirebaseAuth fAuth = FirebaseAuth.getInstance();
-//        fAuth.signOut();
+        FirebaseAuth fAuth = FirebaseAuth.getInstance();
+        fAuth.signOut();
         Intent intent = new Intent(this, LandingActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
@@ -285,7 +294,8 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void onUserProfileClick(MenuItem menu) {
-//        FirebaseAuth fAuth = FirebaseAuth.getInstance();
+        FirebaseAuth fAuth = FirebaseAuth.getInstance();
+
         Intent intent = new Intent(this, UserProfileActivity.class);
         startActivity(intent);
     }

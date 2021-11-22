@@ -10,6 +10,7 @@
         android:layout_height="240dp"
         android:orientation="vertical">
         <ImageView
+            android:id="@+id/image_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="fitXY"
@@ -58,7 +59,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1.75"
                 android:layout_height="wrap_content"
-                android:text="Textview"/>
+                android:text=""/>
 
 
         </LinearLayout>
@@ -80,7 +81,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1.75"
                 android:layout_height="wrap_content"
-                android:text="Textview"/>
+                android:text=""/>
 
         </LinearLayout>
 
@@ -102,7 +103,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1.75"
                 android:layout_height="wrap_content"
-                android:text="Ingredients"/>
+                android:text=""/>
 
         </LinearLayout>
 
