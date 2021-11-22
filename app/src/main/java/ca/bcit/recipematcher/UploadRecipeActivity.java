@@ -24,11 +24,17 @@ import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -37,6 +43,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 public class UploadRecipeActivity extends AppCompatActivity {
 
@@ -48,6 +55,8 @@ public class UploadRecipeActivity extends AppCompatActivity {
     Uri selectedImage;
     List<EditText> stepsList;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private StorageReference mStorageRef;
+    private FirebaseUser user;
 
 
     @Override
@@ -65,6 +74,9 @@ public class UploadRecipeActivity extends AppCompatActivity {
 
         stepsList = new ArrayList<>();
 
+        mStorageRef = FirebaseStorage.getInstance().getReference("recipe_images");
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
         // Image Selector
         selectImage = (Button) findViewById(R.id.btnSelectPhoto);
         uploadRecipe = findViewById(R.id.btnUpload);
@@ -77,62 +89,68 @@ public class UploadRecipeActivity extends AppCompatActivity {
             }
         });
 
+        // Start the upload process
         uploadRecipe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText recipeNameET = findViewById(R.id.upload_recipe_name_et);
-                EditText ingredientsET = findViewById(R.id.upload_recipe_ingredients_et);
-                EditText stepET = findViewById(R.id.upload_recipe_step1_et);
-                List<String> stepListStrings = new ArrayList<>();
-
-
-                String recipeName = recipeNameET.getText().toString();
-                String ingredients = ingredientsET.getText().toString();
-                String step = stepET.getText().toString();
-                String category = String.valueOf(categorySpinner.getSelectedItem());
-                stepListStrings.add(step);
-                for (EditText et: stepsList) {
-                    stepListStrings.add(et.getText().toString());
+                // A unique id to give the recipe image
+                if (user != null) {
+                    UUID imageID = UUID.randomUUID();
+                    StorageReference sRef = mStorageRef.child(imageID.toString());
+                    // Add the image selected by the onActivityResult method into Firebase storage
+                    sRef.putFile(selectedImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            sRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    final String imageURL = uri.toString();
+                                    uploadRecipeToFirebase(imageURL, user.getUid());
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    Toast.makeText(UploadRecipeActivity.this, "Must be logged in to upload",
+                            Toast.LENGTH_SHORT).show();
                 }
-                Recipe recipe = new Recipe(recipeName, ingredients, category, stepListStrings);
-                db.collection("recipes")
-                        .add(recipe)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                Log.d("Tag", "DocumentSnapshot added with ID: " + documentReference.getId());
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w("Tag", "Error adding document", e);
-                            }
-                        });
             }
         });
+    }
 
-//        // Create a new user with a first and last name
-//        Map<String, Object> user = new HashMap<>();
-//        user.put("first", "Ada");
-//        user.put("last", "Lovelace");
-//        user.put("born", 1815);
-//
-//// Add a new document with a generated ID
-//        db.collection("users")
-//                .add(user)
-//                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                    @Override
-//                    public void onSuccess(DocumentReference documentReference) {
-//                        Log.d("Tag", "DocumentSnapshot added with ID: " + documentReference.getId());
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Log.w("Tag", "Error adding document", e);
-//                    }
-//                });
+    /**
+     * Upload the recipe to firebase
+     * @param imageURL the URL where the image is stored on Firebase
+     */
+    private void uploadRecipeToFirebase(String imageURL, String userUid) {
+        EditText recipeNameET = findViewById(R.id.upload_recipe_name_et);
+        EditText ingredientsET = findViewById(R.id.upload_recipe_ingredients_et);
+        EditText stepET = findViewById(R.id.upload_recipe_step1_et);
+        List<String> stepListStrings = new ArrayList<>();
+
+        String recipeName = recipeNameET.getText().toString();
+        String ingredients = ingredientsET.getText().toString();
+        String step = stepET.getText().toString();
+        String category = String.valueOf(categorySpinner.getSelectedItem());
+        stepListStrings.add(step);
+        for (EditText et: stepsList) {
+            stepListStrings.add(et.getText().toString());
+        }
+        Recipe recipe = new Recipe(recipeName, ingredients, category, stepListStrings, imageURL, userUid);
+        db.collection("recipes")
+                .add(recipe)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d("Tag", "DocumentSnapshot added with ID: " + documentReference.getId());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("Tag", "Error adding document", e);
+                    }
+                });
     }
 
     @Override
