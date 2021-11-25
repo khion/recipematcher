@@ -19,7 +19,7 @@
     <string name="login_prompt">Already have an account?</string>
     <string name="upload_txt">Upload</string>
     <string name="search_txt">Search</string>
-    <string name="hungry_text">Search by name/ingredients</string>
+    <string name="hungry_text">Search</string>
     <string name="pasta_txt">Pasta</string>
     <string name="asian_txt">Asian</string>
     <string name="main_txt">Main</string>
@@ -45,6 +45,9 @@
     <string name="video_txt">Tutorials</string>
     <string name="send_txt">Send</string>
     <string name="rating_text">"Rating: "</string>
+    <string name="steps">Steps</string>
+    <string name="ingredients_txt">Ingredients</string>
+    <string name="rating_txt">Rating</string>
 
 
     <string-array name="category_array">

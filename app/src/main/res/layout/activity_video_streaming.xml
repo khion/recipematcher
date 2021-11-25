@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
     android:orientation="vertical"
     tools:context=".VideoStreamingActivity">
 
@@ -12,24 +11,43 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 
-    <EditText
-        android:id="@+id/editName"
+
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="10dp"
-        android:ems="10"
-        android:hint="@string/hungry_text"
-        android:inputType="textLongMessage"
-        android:drawableStart="@drawable/ic_search2"
-        android:drawablePadding="10dp"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:background="@drawable/custom_input_field2"
-        android:textColorHint="@color/white"
-        android:autofillHints="" />
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/edit_Search"
+            android:layout_width="0dp"
+            android:layout_weight="1.5"
+            android:layout_height="40dp"
+            android:ems="10"
+            android:hint="@string/hungry_text"
+            android:inputType="textLongMessage"
+            android:drawableStart="@drawable/ic_search"
+            android:drawablePadding="10dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:background="@drawable/custom_input_field"
+            android:textColorHint="@color/dark_grey"
+            android:autofillHints="" />
+
+        <Button
+            android:id="@+id/search_btn"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="40dp"
+            android:layout_marginStart="5dp"
+            android:text="@string/send_txt"
+            android:textColor="@color/white"
+            android:background="@drawable/search_button"
+            android:onClick="onSearchClick"
+            android:textAllCaps="false"/>
+
+    </LinearLayout>
 
 
     <ScrollView
@@ -42,87 +60,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-                android:id="@+id/stream1"
+            <ListView
+                android:id="@+id/searchList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                app:autoPlay="false"
-                app:videoId="dWlStZlu6bY"
-                app:useWebUi="true" />
-
-            <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-                android:id="@+id/stream2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                app:autoPlay="false"
-                app:videoId="FUeyrEN14Rk"
-                app:useWebUi="true" />
-
-
-            <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-                android:id="@+id/stream3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                app:autoPlay="false"
-                app:videoId="Sv7NP9LMU4Q"
-                app:useWebUi="true" />
-
-            <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-                android:id="@+id/stream5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                app:autoPlay="false"
-                app:useWebUi="true"
-                app:videoId="5Hn1UhlLphk" />
-
-            <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-                android:id="@+id/stream6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                app:autoPlay="false"
-                app:useWebUi="true"
-                app:videoId="6hA6HReJdm8" />
-
-            <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-                android:id="@+id/stream7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                app:autoPlay="false"
-                app:useWebUi="true"
-                app:videoId="L3f7WnO0MvQ" />
-
-            <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-                android:id="@+id/stream8"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                app:autoPlay="false"
-                app:useWebUi="true"
-                app:videoId="pg19CNo11v8" />
-
-            <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-                android:id="@+id/stream9"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                app:autoPlay="false"
-                app:useWebUi="true"
-                app:videoId="RmLk-G6TNNk" />
-
-            <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-                android:id="@+id/stream10"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                app:autoPlay="false"
-                app:useWebUi="true"
-                app:videoId="z8t91mzdeb4" />
+                android:textSize="30sp"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:text=""/>
 
 
         </LinearLayout>

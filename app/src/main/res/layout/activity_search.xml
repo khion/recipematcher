@@ -8,7 +8,6 @@
     android:layout_height="match_parent"
     android:fillViewport="true">
 
-
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -20,19 +19,10 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:layout_width="140dp"
-        android:layout_height="130dp"
-        android:elevation="4dp"
-        app:lottie_rawRes="@raw/cooking"
-        android:layout_gravity="center_horizontal"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"/>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_margin="10dp"
         android:orientation="horizontal">
 
         <EditText
@@ -56,7 +46,10 @@
             android:layout_width="0dp"
             android:layout_weight="0.5"
             android:layout_height="40dp"
+            android:layout_marginStart="5dp"
             android:text="@string/send_txt"
+            android:textColor="@color/white"
+            android:background="@drawable/search_button"
             android:onClick="onSearchClick"
             android:textAllCaps="false"/>
 
@@ -137,16 +130,33 @@
 
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/searchList"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:padding="10dp"
-        android:layout_margin="10dp"
-        android:text=""/>
+        android:layout_height="wrap_content">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/logo_animate"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_marginTop="50dp"
+            android:elevation="4dp"
+            app:lottie_rawRes="@raw/cook"
+            app:lottie_autoPlay="true"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            app:lottie_loop="false"/>
+
+        <ListView
+            android:id="@+id/searchList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:padding="10dp"
+            android:layout_margin="10dp"
+            android:text=""/>
+    </RelativeLayout>
 
 </LinearLayout>
 
