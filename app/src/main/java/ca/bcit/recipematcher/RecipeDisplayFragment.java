@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 public class RecipeDisplayFragment extends Fragment {
 
+    private Recipe currentlyShowing;
 
     public RecipeDisplayFragment() {
         // Required empty public constructor
@@ -27,19 +28,22 @@ public class RecipeDisplayFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_recipe_display, container, false);
 
+        assert getArguments() != null;
+        currentlyShowing = getArguments().getParcelable("currentRecipe");
+
         view.setOnTouchListener(new onSwipeTouchListener(view.getContext()) {
-            public void onSwipeTop() {
-                Toast.makeText(view.getContext(), "top", Toast.LENGTH_SHORT).show();
-            }
+//            public void onSwipeTop() {
+//                Toast.makeText(view.getContext(), "top", Toast.LENGTH_SHORT).show();
+//            }
             public void onSwipeRight() {
                 Toast.makeText(view.getContext(), "right", Toast.LENGTH_SHORT).show();
             }
             public void onSwipeLeft() {
                 Toast.makeText(view.getContext(), "left", Toast.LENGTH_SHORT).show();
             }
-            public void onSwipeBottom() {
-                Toast.makeText(view.getContext(), "bottom", Toast.LENGTH_SHORT).show();
-            }
+//            public void onSwipeBottom() {
+//                Toast.makeText(view.getContext(), "bottom", Toast.LENGTH_SHORT).show();
+//            }
 
         });
 
@@ -52,7 +56,7 @@ public class RecipeDisplayFragment extends Fragment {
         View v = getView();
         if (v != null) {
             TextView name = v.findViewById(R.id.recipe_name);
-            name.setText("recipe name");
+            name.setText("test");
         }
     }
 }

@@ -1,5 +1,6 @@
 package ca.bcit.recipematcher;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.widget.Toolbar;
@@ -10,12 +11,24 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
     private Menu menu_bar;
+    private List<Recipe> recipeList;
+    private FirebaseFirestore mRef;
+    private int swipeListIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +38,30 @@ public class MainActivity extends AppCompatActivity {
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        mRef = FirebaseFirestore.getInstance();
+        recipeList = new ArrayList<Recipe>();
+        recipeList.clear();
+        mRef.collection("recipes")
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        Recipe recipe = document.toObject(Recipe.class);
+                        recipeList.add(recipe);
+                    }
+                }
+            }
+        });
+
+        swipeListIndex = new Random().nextInt(recipeList.size()); // errors out due to recipeList not being filled
+
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.recipe_placeholder, new RecipeDisplayFragment());
+        RecipeDisplayFragment fragment = new RecipeDisplayFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("currentRecipe", recipeList.get(swipeListIndex));
+        fragment.setArguments(bundle);
+        ft.replace(R.id.recipe_placeholder, fragment);
         ft.commit();
     }
 
