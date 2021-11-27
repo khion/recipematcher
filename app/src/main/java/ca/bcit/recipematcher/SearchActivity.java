@@ -85,7 +85,7 @@ public class SearchActivity extends AppCompatActivity {
      * @param view view
      */
     public void onSearchClick(View view) {
-
+        recipeResults.clear();
         String search_string = search_view.getText().toString().trim();
         if (TextUtils.isEmpty(search_string)) {
             Toast.makeText(SearchActivity.this, "Enter some keywords", Toast.LENGTH_SHORT).show();
@@ -114,6 +114,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void onPastaClick(View view) {
+        recipeResults.clear();
         mRef.collection("recipes")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -136,6 +137,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void onAsianClick(View view) {
+        recipeResults.clear();
         mRef.collection("recipes")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -159,6 +161,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void onMainClick(View view) {
+        recipeResults.clear();
         mRef.collection("recipes")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -180,6 +183,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void onDessertClick(View view) {
+        recipeResults.clear();
         mRef.collection("recipes")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -201,6 +205,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void onHotClick(View view) {
+        recipeResults.clear();
         mRef.collection("recipes")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -222,6 +227,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void onColdClick(View view) {
+        recipeResults.clear();
         mRef.collection("recipes")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override

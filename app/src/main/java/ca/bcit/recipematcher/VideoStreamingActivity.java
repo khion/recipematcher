@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -57,6 +58,21 @@ public class VideoStreamingActivity extends AppCompatActivity {
         mRef = FirebaseFirestore.getInstance();
         lvVideoList = findViewById(R.id.searchList);
         videoList = new ArrayList<Video>();
+
+        lvVideoList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Video video = videoList.get(i);
+                String youtubeUrl = video.getVideo_id();
+                String youtubeTitle = video.getTitle();
+
+                Intent intent = new Intent(VideoStreamingActivity.this, VideoPlayer.class);
+                intent.putExtra("URL", youtubeUrl);
+                intent.putExtra("title", youtubeTitle);
+                startActivity(intent);
+            }
+        });
+
     }
 
 
@@ -90,6 +106,33 @@ public class VideoStreamingActivity extends AppCompatActivity {
                 }
             });
         }
+        videoList.clear();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        List<Video> fireStoreVideo = new ArrayList<Video>();;
+        mRef.collection("video_stream")
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        Video video = document.toObject(Video.class);
+                        fireStoreVideo.add(video);
+                    }
+
+                    for (int i = 0; i < 5; i++) {
+                        int random = (int )(Math.random() * (fireStoreVideo.size()-1) + 1);
+                        videoList.add(fireStoreVideo.get(random));
+                    }
+                    videoAdapter adapter = new videoAdapter(VideoStreamingActivity.this, videoList);
+                    lvVideoList.setAdapter(adapter);
+                }
+            }
+        });
     }
 
     @Override

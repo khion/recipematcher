@@ -19,6 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RecipeMatcher">
         <activity
+            android:name=".VideoPlayer"
+            android:exported="false" />
+        <activity
             android:name=".VideoStreamingActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:exported="false" />
