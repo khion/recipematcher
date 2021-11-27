@@ -47,4 +47,32 @@ public class Recipe {
     public String getImageURL() { return imageURL; }
 
     public String getUserUid() { return userUid; }
+
+    public void setRecipeName(String recipeName) {
+        this.recipeName = recipeName;
+    }
+
+    public void setIngredients(String ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public void setStepList(List<String> stepList) {
+        this.stepList = stepList;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+    }
+
+    public void setUserUid(String userUid) {
+        this.userUid = userUid;
+    }
 }

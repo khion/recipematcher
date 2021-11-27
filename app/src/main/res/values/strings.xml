@@ -46,6 +46,8 @@
     <string name="send_txt">Send</string>
     <string name="rating_text">"Rating: "</string>
 
+    <!-- UploadedRecipes activity -->
+    <string name="no_recipes_text">You Haven\'t Uploaded Any Recipes</string>
 
     <string-array name="category_array">
         <item>Pasta</item>

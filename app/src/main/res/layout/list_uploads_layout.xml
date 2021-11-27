@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_tiles"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="60dp"
+            android:layout_margin="10dp"
+            android:layout_height="60dp">
+
+            <ImageView
+                android:id="@+id/upload_image_view"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/pasta"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2">
+
+                <TextView
+                    android:id="@+id/upload_recipe_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Recipe name"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                    />
+
+                <Button
+                    android:id="@+id/button_delete_upload"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:text="Delete" />
+
+            </GridLayout>
+
+
+
+            <TextView
+                android:id="@+id/upload_category_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textAlignment="viewStart" />
+
+            <TextView
+                android:id="@+id/upload_rating_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="textView" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
