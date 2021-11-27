@@ -45,9 +45,6 @@ public class RecipeSearchAdapter extends ArrayAdapter<Recipe> {
         tvRating.setText("Rating: " + recipe.getRating());
         String imageURL = recipe.getImageURL();
         Picasso.get().load(imageURL).into(recipeImage);
-        String imageURL = recipe.getImageURL();
-        Picasso.get().load(imageURL).into(recipeImage);
-
 
         return listViewItem;
     }
