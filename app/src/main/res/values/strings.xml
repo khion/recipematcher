@@ -19,7 +19,7 @@
     <string name="login_prompt">Already have an account?</string>
     <string name="upload_txt">Upload</string>
     <string name="search_txt">Search</string>
-    <string name="hungry_text">Search by name/ingredients</string>
+    <string name="hungry_text">Search</string>
     <string name="pasta_txt">Pasta</string>
     <string name="asian_txt">Asian</string>
     <string name="main_txt">Main</string>
@@ -29,6 +29,9 @@
     <string name="recipe_uploaded">Recipe List</string>
     <string name="favourites">Favourites</string>
     <string name="host_txt">Hosting</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!--Upload Recipe Activity-->
     <string name="recipe_name">Recipe Name</string>
@@ -45,6 +48,9 @@
     <string name="video_txt">Tutorials</string>
     <string name="send_txt">Send</string>
     <string name="rating_text">"Rating: "</string>
+    <string name="steps">Steps</string>
+    <string name="ingredients_txt">Ingredients</string>
+    <string name="rating_txt">Rating</string>
 
     <!-- UploadedRecipes activity -->
     <string name="no_recipes_text">You Haven\'t Uploaded Any Recipes</string>

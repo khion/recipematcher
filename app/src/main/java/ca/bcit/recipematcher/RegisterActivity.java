@@ -58,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String email = editEmail.getText().toString().trim();
                 String password = editPassword.getText().toString().trim();
-                String fullname = editName.getText().toString().trim();
+                String fullName = editName.getText().toString().trim();
                 String phone = " ";
                 String image = " ";
 
@@ -85,7 +85,7 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            user = new User(fullname, email, phone,image);
+                            user = new User(fullName, email, phone,image);
 
                             FirebaseDatabase.getInstance().getReference(USER)
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())

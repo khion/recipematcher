@@ -7,26 +7,30 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.protobuf.StringValue;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,10 +38,10 @@ import java.util.List;
 public class SearchActivity extends AppCompatActivity {
     private static final Object TAG = 1;
     private EditText search_view;
-    private FirebaseFirestore mref;
+    private FirebaseFirestore mRef;
     private ListView lvRecipeList;
     private List<Recipe> recipeResults;
-
+    private LottieAnimationView animationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,16 +52,16 @@ public class SearchActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         // add back arrow to toolbar
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
-
         search_view = findViewById(R.id.edit_Search);
-        mref = FirebaseFirestore.getInstance();
+        mRef = FirebaseFirestore.getInstance();
         lvRecipeList = findViewById(R.id.searchList);
         recipeResults = new ArrayList<Recipe>();
+        animationView = findViewById(R.id.logo_animate);
 
         lvRecipeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -66,7 +70,8 @@ public class SearchActivity extends AppCompatActivity {
 
                 showRecipeDialog(recipe.getRecipeName(),
                         recipe.getCategory(),
-                        recipe.getIngredients());
+                        recipe.getIngredients(), recipe.getImageURL(),
+                        recipe.getStepList());
             }
         });
 
@@ -76,32 +81,41 @@ public class SearchActivity extends AppCompatActivity {
     /**
      * On click method that will display a list of recipes corresponding to
      * the search string values
+     *
      * @param view view
      */
     public void onSearchClick(View view) {
+        recipeResults.clear();
         String search_string = search_view.getText().toString().trim();
-        mref.collection("recipes")
-                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        Recipe recipe = document.toObject(Recipe.class);
-                        String recipeName = recipe.getRecipeName();
-                        String recipeIng = recipe.getIngredients();
-                        if (recipeName.contains(search_string) || recipeIng.contains(search_string)) {
-                            recipeResults.add(recipe);
+        if (TextUtils.isEmpty(search_string)) {
+            Toast.makeText(SearchActivity.this, "Enter some keywords", Toast.LENGTH_SHORT).show();
+        } else {
+            mRef.collection("recipes")
+                    .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            Recipe recipe = document.toObject(Recipe.class);
+                            String recipeName = recipe.getRecipeName();
+                            String recipeIng = recipe.getIngredients();
+                            if (recipeName.contains(search_string) || recipeIng.contains(search_string)) {
+                                recipeResults.add(recipe);
+                            }
+
+                            animationView.setVisibility(View.INVISIBLE);
                         }
+                        RecipeSearchAdapter adapter = new RecipeSearchAdapter(SearchActivity.this, recipeResults);
+                        lvRecipeList.setAdapter(adapter);
                     }
-                    RecipeSearchAdapter adapter = new RecipeSearchAdapter(SearchActivity.this, recipeResults);
-                    lvRecipeList.setAdapter(adapter);
                 }
-            }
-        });
+            });
+        }
     }
 
     public void onPastaClick(View view) {
-        mref.collection("recipes")
+        recipeResults.clear();
+        mRef.collection("recipes")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -112,6 +126,7 @@ public class SearchActivity extends AppCompatActivity {
                         if (recipeCategory != null && recipeCategory.equals("Pasta")) {
                             recipeResults.add(recipe);
                         }
+                        animationView.setVisibility(View.INVISIBLE);
                     }
                     RecipeSearchAdapter adapter = new RecipeSearchAdapter(SearchActivity.this, recipeResults);
                     lvRecipeList.setAdapter(adapter);
@@ -122,7 +137,8 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void onAsianClick(View view) {
-        mref.collection("recipes")
+        recipeResults.clear();
+        mRef.collection("recipes")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -135,6 +151,7 @@ public class SearchActivity extends AppCompatActivity {
                         } else {
                             Toast.makeText(SearchActivity.this, "No Asian Recipes", Toast.LENGTH_SHORT).show();
                         }
+                        animationView.setVisibility(View.INVISIBLE);
                     }
                     RecipeSearchAdapter adapter = new RecipeSearchAdapter(SearchActivity.this, recipeResults);
                     lvRecipeList.setAdapter(adapter);
@@ -144,7 +161,8 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void onMainClick(View view) {
-        mref.collection("recipes")
+        recipeResults.clear();
+        mRef.collection("recipes")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -155,6 +173,7 @@ public class SearchActivity extends AppCompatActivity {
                         if (recipeCategory != null && recipeCategory.equals("Main")) {
                             recipeResults.add(recipe);
                         }
+                        animationView.setVisibility(View.INVISIBLE);
                     }
                     RecipeSearchAdapter adapter = new RecipeSearchAdapter(SearchActivity.this, recipeResults);
                     lvRecipeList.setAdapter(adapter);
@@ -164,7 +183,8 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void onDessertClick(View view) {
-        mref.collection("recipes")
+        recipeResults.clear();
+        mRef.collection("recipes")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -175,6 +195,7 @@ public class SearchActivity extends AppCompatActivity {
                         if (recipeCategory != null && recipeCategory.equals("Dessert")) {
                             recipeResults.add(recipe);
                         }
+                        animationView.setVisibility(View.INVISIBLE);
                     }
                     RecipeSearchAdapter adapter = new RecipeSearchAdapter(SearchActivity.this, recipeResults);
                     lvRecipeList.setAdapter(adapter);
@@ -184,7 +205,8 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void onHotClick(View view) {
-        mref.collection("recipes")
+        recipeResults.clear();
+        mRef.collection("recipes")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -195,6 +217,7 @@ public class SearchActivity extends AppCompatActivity {
                         if (recipeCategory != null && recipeCategory.equals("Hot")) {
                             recipeResults.add(recipe);
                         }
+                        animationView.setVisibility(View.INVISIBLE);
                     }
                     RecipeSearchAdapter adapter = new RecipeSearchAdapter(SearchActivity.this, recipeResults);
                     lvRecipeList.setAdapter(adapter);
@@ -204,7 +227,8 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void onColdClick(View view) {
-        mref.collection("recipes")
+        recipeResults.clear();
+        mRef.collection("recipes")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -215,6 +239,7 @@ public class SearchActivity extends AppCompatActivity {
                         if (recipeCategory != null && recipeCategory.equals("Cold")) {
                             recipeResults.add(recipe);
                         }
+                        animationView.setVisibility(View.INVISIBLE);
                     }
                     RecipeSearchAdapter adapter = new RecipeSearchAdapter(SearchActivity.this, recipeResults);
                     lvRecipeList.setAdapter(adapter);
@@ -224,12 +249,23 @@ public class SearchActivity extends AppCompatActivity {
     }
 
 
-    public void showRecipeDialog(final String recipeName, String recipeCategory, String recipeIngredients) {
+    /**
+     * This will show dialog of the recipe information.
+     *
+     * @param recipeName        recipeName
+     * @param recipeCategory    recipeCategory
+     * @param recipeIngredients recipeIngredients
+     * @param imageURl          imageURL
+     */
+    public void showRecipeDialog(final String recipeName, String recipeCategory, String recipeIngredients, String imageURl, List<String> steps) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 
         LayoutInflater inflater = getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.search_dialog, null);
         dialogBuilder.setView(dialogView);
+
+        final ImageView imageView = dialogView.findViewById(R.id.image_id);
+        Picasso.get().load(imageURl).into(imageView);
 
         final TextView tvRecipeName = dialogView.findViewById(R.id.recipe_name);
         tvRecipeName.setText(recipeName);
@@ -240,9 +276,34 @@ public class SearchActivity extends AppCompatActivity {
         final TextView tvRecipeIngredients = dialogView.findViewById(R.id.recipe_ingredients);
         tvRecipeIngredients.setText(recipeIngredients);
 
-        final TextView tvRecipeSteps = dialogView.findViewById(R.id.recipe_steps);
-//        tvRecipeSteps.setText(steps);
+        TableLayout instructionTable = (TableLayout) dialogView.findViewById(R.id.recipe_instructions);
 
+
+        for (int i = 0; i < steps.size(); i++) {
+
+
+            TableRow instructionRow = new TableRow(SearchActivity.this);
+
+            instructionRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+            // New step text
+            TextView recipeStepText = new TextView(SearchActivity.this);
+            recipeStepText.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+            String text = "Step " + (i + 1) + ":";
+            recipeStepText.setText(text);
+
+            // New step input
+            TextView recipeStepInput = new TextView(SearchActivity.this);
+            recipeStepInput.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
+            System.out.println(steps.get(i));
+            recipeStepInput.setText(steps.get(i));
+
+            instructionRow.addView(recipeStepText);
+            instructionRow.addView(recipeStepInput);
+
+            if (instructionTable != null) {
+                instructionTable.addView(instructionRow);
+            }
+        }
 
         final AlertDialog alertDialog = dialogBuilder.create();
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -263,11 +324,7 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-
     }
-
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -276,8 +333,8 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void onLogoutClick(MenuItem menu) {
-//        FirebaseAuth fAuth = FirebaseAuth.getInstance();
-//        fAuth.signOut();
+        FirebaseAuth fAuth = FirebaseAuth.getInstance();
+        fAuth.signOut();
         Intent intent = new Intent(this, LandingActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
@@ -285,7 +342,8 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void onUserProfileClick(MenuItem menu) {
-//        FirebaseAuth fAuth = FirebaseAuth.getInstance();
+        FirebaseAuth fAuth = FirebaseAuth.getInstance();
+
         Intent intent = new Intent(this, UserProfileActivity.class);
         startActivity(intent);
     }
@@ -295,7 +353,5 @@ public class SearchActivity extends AppCompatActivity {
         onBackPressed();
         return true;
     }
-
-
 
 }
