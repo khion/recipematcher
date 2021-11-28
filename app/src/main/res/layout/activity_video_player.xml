@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/black"
     tools:context=".VideoPlayer">
 
     <include
@@ -27,8 +28,8 @@
         android:id="@+id/video_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Title"
         android:textAlignment="center"
+        android:textColor="@color/white"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
 
 </LinearLayout>

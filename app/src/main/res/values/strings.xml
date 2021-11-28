@@ -2,7 +2,7 @@
     <string name="app_name">Recipe Matcher</string>
 
     <string name="welcome">Recipe Matcher</string>
-    <string name="email_hint">Email: </string>
+    <string name="email_hint">Email </string>
 
     <string name="logout">logout</string>
     <string name="user">user</string>
@@ -54,6 +54,7 @@
 
     <!-- UploadedRecipes activity -->
     <string name="no_recipes_text">You Haven\'t Uploaded Any Recipes</string>
+    <string name="edit">Edit</string>
 
     <string-array name="category_array">
         <item>Pasta</item>

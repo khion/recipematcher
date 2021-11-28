@@ -124,9 +124,12 @@ public class VideoStreamingActivity extends AppCompatActivity {
                         fireStoreVideo.add(video);
                     }
 
-                    for (int i = 0; i < 5; i++) {
+                    videoList = new ArrayList<>(5);
+                    for (int i = 0; i <= videoList.size(); i++) {
                         int random = (int )(Math.random() * (fireStoreVideo.size()-1) + 1);
-                        videoList.add(fireStoreVideo.get(random));
+                        if (!(videoList.contains(fireStoreVideo.get(random)))) {
+                            videoList.add(fireStoreVideo.get(random));
+                        }
                     }
                     videoAdapter adapter = new videoAdapter(VideoStreamingActivity.this, videoList);
                     lvVideoList.setAdapter(adapter);

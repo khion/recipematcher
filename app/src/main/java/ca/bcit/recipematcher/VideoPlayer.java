@@ -45,6 +45,7 @@ public class VideoPlayer extends AppCompatActivity {
 
         TextView tvVideoTitle= findViewById(R.id.video_title);
         tvVideoTitle.setText(YOUTUBE_TITLE);
+     //   tvVideoTitle.bringToFront();
     }
 
     @Override
