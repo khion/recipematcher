@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -129,6 +130,21 @@ public class ViewRecipeActivity extends AppCompatActivity {
                 assert recipe != null;
                 name.setText(recipe.getRecipeName());
                 Picasso.get().load(recipe.getImageURL()).into(image);
+                double recipeRating = recipe.getRating();
+
+                Button submitRatingButton = findViewById(R.id.submit_rating_button);
+                submitRatingButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        submitRatingButton.setVisibility(View.INVISIBLE);
+                        RatingBar ratingBar = findViewById(R.id.recipe_rating_bar);
+                        int newRating = (int) ratingBar.getRating();
+                        //int ratingCount = recipe.getRatingCount();
+                        //ratingCount++;
+                        //recipeDocRef.update("rating", (recipeRating + newRating) / ratingCount);
+                        //recipeDocRef.update("ratingCount", ratingCount);
+                    }
+                });
             }
         });
     }
