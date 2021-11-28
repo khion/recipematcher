@@ -36,16 +36,14 @@ public class VideoPlayer extends AppCompatActivity {
         youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
             @Override
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-                youTubePlayer.cueVideo(YOUTUBE_URL, 0);
+                youTubePlayer.loadVideo(YOUTUBE_URL, 0);
             }
         });
 
-        youTubePlayerView.enterFullScreen();
-        youTubePlayerView.exitFullScreen();
 
         TextView tvVideoTitle= findViewById(R.id.video_title);
         tvVideoTitle.setText(YOUTUBE_TITLE);
-     //   tvVideoTitle.bringToFront();
+
     }
 
     @Override

@@ -1,15 +1,18 @@
 package ca.bcit.recipematcher;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -38,6 +41,9 @@ public class VideoStreamingActivity extends AppCompatActivity {
     private FirebaseFirestore mRef;
     private ListView lvVideoList;
     private List<Video> videoList;
+
+    private FirebaseUser currentUser;
+    private String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +78,12 @@ public class VideoStreamingActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            userID = currentUser.getUid();
+        }
+
 
     }
 
@@ -159,14 +171,38 @@ public class VideoStreamingActivity extends AppCompatActivity {
      * @param menu menu
      */
     public void onUserProfileClick(MenuItem menu) {
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        Intent intent;
-        if (currentUser != null) {
-            intent = new Intent(VideoStreamingActivity.this, UserProfileActivity.class);
-        } else {
-            intent = new Intent(VideoStreamingActivity.this, LandingActivity.class);
+        if (userID != null) {
+            Intent intent = new Intent(VideoStreamingActivity.this, UserProfileActivity.class);
+            startActivity(intent);
         }
-        startActivity(intent);
+        if (userID == null) {
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(VideoStreamingActivity.this);
+            LayoutInflater inflater = getLayoutInflater();
+            final View dialogView = inflater.inflate(R.layout.login_dialog, null);
+            dialogBuilder.setView(dialogView);
+
+            final AlertDialog alertDialog = dialogBuilder.create();
+            alertDialog.show();
+
+
+            final Button cancel_button = dialogView.findViewById(R.id.cancel_button);
+            final Button login_button = dialogView.findViewById(R.id.btnLogin);
+
+            cancel_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    alertDialog.dismiss();
+                }
+            });
+
+            login_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(VideoStreamingActivity.this, LandingActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }
     }
 
     @Override

@@ -1,14 +1,17 @@
 package ca.bcit.recipematcher;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -16,6 +19,8 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity {
 
     private Menu menu_bar;
+    private FirebaseUser currentUser;
+    private String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +33,11 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.recipe_placeholder, new RecipeDisplayFragment());
         ft.commit();
+
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            userID = currentUser.getUid();
+        }
     }
 
     @Override
@@ -51,14 +61,38 @@ public class MainActivity extends AppCompatActivity {
      * @param menu menu
      */
     public void onUserProfileClick(MenuItem menu) {
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        Intent intent;
-        if (currentUser != null) {
-            intent = new Intent(this, UserProfileActivity.class);
-        } else {
-            intent = new Intent(this, LandingActivity.class);
+        if (userID != null) {
+            Intent intent = new Intent(MainActivity.this, UserProfileActivity.class);
+            startActivity(intent);
         }
-        startActivity(intent);
+        if (userID == null) {
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MainActivity.this);
+            LayoutInflater inflater = getLayoutInflater();
+            final View dialogView = inflater.inflate(R.layout.login_dialog, null);
+            dialogBuilder.setView(dialogView);
+
+            final AlertDialog alertDialog = dialogBuilder.create();
+            alertDialog.show();
+
+
+            final Button cancel_button = dialogView.findViewById(R.id.cancel_button);
+            final Button login_button = dialogView.findViewById(R.id.btnLogin);
+
+            cancel_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    alertDialog.dismiss();
+                }
+            });
+
+            login_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(MainActivity.this, LandingActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }
     }
 
     public void onSearchClick(View view) {
@@ -68,8 +102,38 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onUploadClick(View view) {
-        Intent intent = new Intent(this, UploadRecipeActivity.class);
-        startActivity(intent);
+        if (userID != null) {
+            Intent intent = new Intent(MainActivity.this, UserProfileActivity.class);
+            startActivity(intent);
+        }
+        if (userID == null) {
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MainActivity.this);
+            LayoutInflater inflater = getLayoutInflater();
+            final View dialogView = inflater.inflate(R.layout.login_dialog, null);
+            dialogBuilder.setView(dialogView);
+
+            final AlertDialog alertDialog = dialogBuilder.create();
+            alertDialog.show();
+
+
+            final Button cancel_button = dialogView.findViewById(R.id.cancel_button);
+            final Button login_button = dialogView.findViewById(R.id.btnLogin);
+
+            cancel_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    alertDialog.dismiss();
+                }
+            });
+
+            login_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(MainActivity.this, LandingActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }
     }
 
     public void onStreamingClick(View view) {
