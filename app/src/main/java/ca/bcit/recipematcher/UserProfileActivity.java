@@ -53,6 +53,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private TextView mButtonChooseImage;
     private Button mButtonSave;
     private Button mButtonRecipeList;
+    private Button mButtonFavouriteList;
     private ListView mListUploadedRecipes;
 
     private CircleImageView mImageView;
@@ -126,6 +127,7 @@ public class UserProfileActivity extends AppCompatActivity {
         mButtonChooseImage = findViewById(R.id.edit_image);
         mButtonSave = findViewById(R.id.save_image);
         mButtonRecipeList = findViewById(R.id.collection_btn);
+        mButtonFavouriteList = findViewById(R.id.favourites_btn);
         mImageView = findViewById(R.id.profile_image);
         mProgressBar = findViewById(R.id.progress_bar);
         mButtonSave.setVisibility(View.INVISIBLE);
@@ -155,6 +157,13 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
 
+        mButtonFavouriteList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startFavouriteRecipesActivity();
+            }
+        });
+
         editProfile = findViewById(R.id.edit);
 
         editProfile.setOnClickListener(new View.OnClickListener() {
@@ -163,7 +172,12 @@ public class UserProfileActivity extends AppCompatActivity {
                 showUpdateDialog(fullName, email, phone);
             }
         });
+    }
 
+
+    private void startFavouriteRecipesActivity() {
+        Intent i = new Intent(this, FavouritedRecipesActivity.class);
+        startActivity(i);
     }
 
     private void openFileChooser() {

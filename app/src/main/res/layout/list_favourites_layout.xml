@@ -19,7 +19,7 @@
             android:layout_height="60dp">
 
             <ImageView
-                android:id="@+id/upload_image_view"
+                android:id="@+id/favourite_image_view"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:scaleType="fitXY"
@@ -39,7 +39,7 @@
                 android:columnCount="2">
 
                 <TextView
-                    android:id="@+id/upload_recipe_name"
+                    android:id="@+id/favourite_recipe_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Recipe name"
@@ -47,25 +47,25 @@
                     />
 
                 <Button
-                    android:id="@+id/button_delete_upload"
+                    android:id="@+id/button_remove_favourite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:text="@string/delete_upload_btn_txt" />
+                    android:text="@string/remove_fav_btn_txt" />
 
             </GridLayout>
 
 
 
             <TextView
-                android:id="@+id/upload_category_text"
+                android:id="@+id/favourite_category_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView"
                 android:textAlignment="viewStart" />
 
             <TextView
-                android:id="@+id/upload_rating_txt"
+                android:id="@+id/favourite_rating_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="textView" />
