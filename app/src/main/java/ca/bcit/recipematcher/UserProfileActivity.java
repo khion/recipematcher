@@ -172,7 +172,6 @@ public class UserProfileActivity extends AppCompatActivity {
                 startFavouriteRecipesActivity();
             }
         });
-    }
 
         editProfile = findViewById(R.id.edit);
 
@@ -182,8 +181,8 @@ public class UserProfileActivity extends AppCompatActivity {
                 showUpdateDialog(fullName, email, phone);
             }
         });
-
     }
+
 
     private void startFavouriteRecipesActivity() {
         Intent i = new Intent(this, FavouritedRecipesActivity.class);
