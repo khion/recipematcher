@@ -29,6 +29,12 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".FavouritedRecipesActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ViewRecipeActivity"
+            android:exported="true" />
+        <activity
             android:name=".UploadedRecipesActivity"
             android:exported="true" />
         <activity

@@ -1,10 +1,8 @@
 package ca.bcit.recipematcher;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -18,21 +16,21 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UploadedRecipesActivity extends AppCompatActivity {
+public class FavouritedRecipesActivity extends AppCompatActivity {
 
     // Firebase variables
     private FirebaseUser user;
     private FirebaseFirestore db;
 
     // Layout variables
-    private ListView mListUploadedRecipes;
+    private ListView mListFavouritedRecipes;
 
     private String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_uploaded_recipes);
+        setContentView(R.layout.activity_favourited_recipes);
 
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -46,14 +44,14 @@ public class UploadedRecipesActivity extends AppCompatActivity {
         userID = user.getUid();
         db = FirebaseFirestore.getInstance();
 
-        mListUploadedRecipes = findViewById(R.id.uploaded_recipe_list);
+        mListFavouritedRecipes = findViewById(R.id.favourited_recipe_list);
 
         List<Recipe> recipeList = new ArrayList<>();
         DocumentReference docRef = db.collection("users").document(userID);
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                displayUploadedRecipes(recipeList, documentSnapshot);
+                displayFavouritedRecipes(recipeList, documentSnapshot);
             }
         });
     }
@@ -64,13 +62,13 @@ public class UploadedRecipesActivity extends AppCompatActivity {
      * @param recipeList list of recipes
      * @param documentSnapshot DocumentSnapshot of the user
      */
-    public void displayUploadedRecipes(List<Recipe> recipeList, DocumentSnapshot documentSnapshot) {
+    public void displayFavouritedRecipes(List<Recipe> recipeList, DocumentSnapshot documentSnapshot) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 int recipesAdded = 0;
                 User user = documentSnapshot.toObject(User.class);
-                List<String> recipeIDs = user.getRecipes();
+                List<String> recipeIDs = user.getFavourites();
                 for (String s: recipeIDs) {
                     recipesAdded++;
                     DocumentReference recipeRef = db.collection("recipes").document(s);
@@ -80,9 +78,9 @@ public class UploadedRecipesActivity extends AppCompatActivity {
                             Recipe recipe = documentSnapshot.toObject(Recipe.class);
                             recipeList.add(recipe);
                             if (recipeList.size() == recipeIDs.size()) {
-                                RecipeUploadedAdapter adapter = new RecipeUploadedAdapter(
-                                        UploadedRecipesActivity.this, recipeList, recipeIDs, db, userID);
-                                mListUploadedRecipes.setAdapter(adapter);
+                                RecipeFavouritedAdapter adapter = new RecipeFavouritedAdapter(
+                                        FavouritedRecipesActivity.this, recipeList, recipeIDs, db, userID);
+                                mListFavouritedRecipes.setAdapter(adapter);
                             }
                         }
                     });
@@ -92,8 +90,8 @@ public class UploadedRecipesActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         if (finalRecipesAdded == 0) {
-                            TextView noRecipesTextView = findViewById(R.id.no_recipes_tv);
-                            noRecipesTextView.setText(getResources().getString(R.string.no_recipes_text));
+                            TextView noRecipesTextView = findViewById(R.id.no_favs_tv);
+                            noRecipesTextView.setText(getResources().getString(R.string.no_favs_text));
                         }
                     }
                 });

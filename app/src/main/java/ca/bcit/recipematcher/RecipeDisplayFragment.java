@@ -1,5 +1,6 @@
 package ca.bcit.recipematcher;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -62,7 +63,9 @@ public class RecipeDisplayFragment extends Fragment {
                             String recipeDocId = "";
                             int recipeDocIdsIndex = 0;
                             public void onSwipeTop() {
-                                Toast.makeText(view.getContext(), "top", Toast.LENGTH_SHORT).show();
+                                Intent i = new Intent(getActivity(), ViewRecipeActivity.class);
+                                i.putExtra("RecipeID", recipeDocIds.get(recipeDocIdsIndex));
+                                startActivity(i);
                             }
                             public void onSwipeRight() {
                                 if (recipeDocIds.size() > recipeDocIdsIndex) {
@@ -87,14 +90,9 @@ public class RecipeDisplayFragment extends Fragment {
                             public void onSwipeBottom() {
                                 Toast.makeText(view.getContext(), "bottom", Toast.LENGTH_SHORT).show();
                             }
-
                         });
                     }
                 });
-
-
-
-
         return view;
     }
 
@@ -120,6 +118,12 @@ public class RecipeDisplayFragment extends Fragment {
                 name.setText(r.getRecipeName());
 //                ingredients.setText(r.getIngredients());
                 Picasso.get().load(r.getImageURL()).into(image);
+            }
+        });
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), recipeID, Toast.LENGTH_SHORT).show();
             }
         });
     }
