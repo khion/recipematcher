@@ -54,6 +54,11 @@
 
     <!-- UploadedRecipes activity -->
     <string name="no_recipes_text">You Haven\'t Uploaded Any Recipes</string>
+    <string name="delete_upload_btn_txt">Delete</string>
+
+    <!-- FavouritedRecipes activity -->
+    <string name="no_favs_text">You Haven\'t Favourited Any Recipes</string>
+    <string name="remove_fav_btn_txt">Remove</string>
 
     <string-array name="category_array">
         <item>Pasta</item>
@@ -63,6 +68,9 @@
         <item>Hot</item>
         <item>Cold</item>
     </string-array>
+
+    <!-- View Recipe Activity -->
+    <string name="favourite_button_text">Add to Favourites</string>
 
 
 </resources>

@@ -19,6 +19,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RecipeMatcher">
         <activity
+            android:name=".FavouritedRecipesActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ViewRecipeActivity"
+            android:exported="true" />
+        <activity
             android:name=".UploadedRecipesActivity"
             android:exported="true" />
         <activity

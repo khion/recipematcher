@@ -9,6 +9,7 @@ public class User {
     private String phone;
     private String image;
     private List<String> recipes;
+    private List<String> favourites;
 
     public User() {
 
@@ -19,6 +20,15 @@ public class User {
         this.phone = phone;
         this.image = image;
         this.recipes = new ArrayList<>();
+        this.favourites = new ArrayList<>();
+    }
+
+    public List<String> getFavourites() {
+        return favourites;
+    }
+
+    public void setFavourites(List<String> favourites) {
+        this.favourites = favourites;
     }
 
     public String getName() {
