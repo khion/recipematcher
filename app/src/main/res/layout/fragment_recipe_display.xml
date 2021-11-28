@@ -15,58 +15,17 @@
         android:id="@+id/recipe_image"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="6"
+        android:layout_weight="4"
         android:src="@drawable/placeholder" />
 
-    <ScrollView
+
+    <TextView
+        android:id="@+id/recipe_name"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="4">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/recipe_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:textStyle="bold"
-                />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/recipe_ingredients"
-                android:textStyle="bold"
-                android:textColor="@color/orange" />
-
-            <TextView
-                android:id="@+id/recipe_ingredients"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:textStyle="bold"
-                android:text="@string/recipe_steps"
-                android:textColor="@color/orange" />
-
-            <TextView
-                android:id="@+id/recipe_steps"
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-    </ScrollView>
+        android:gravity="center"
+        android:textSize="25sp"
+        android:layout_weight="1"/>
 
 
 </LinearLayout>
