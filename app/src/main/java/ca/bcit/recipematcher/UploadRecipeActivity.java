@@ -60,6 +60,8 @@ public class UploadRecipeActivity extends AppCompatActivity {
     Uri selectedImage;
     List<EditText> stepsList;
     List<EditText> ingredientsList;
+    List<String> stepListStrings;
+    List<String> ingredientsListStrings;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private StorageReference mStorageRef;
@@ -84,6 +86,9 @@ public class UploadRecipeActivity extends AppCompatActivity {
 
         mStorageRef = FirebaseStorage.getInstance().getReference("recipe_images");
         user = FirebaseAuth.getInstance().getCurrentUser();
+
+        stepListStrings = new ArrayList<>();
+        ingredientsListStrings = new ArrayList<String>();
 
         // Image Selector
         selectImage = (Button) findViewById(R.id.btnSelectPhoto);
@@ -134,8 +139,7 @@ public class UploadRecipeActivity extends AppCompatActivity {
         EditText recipeNameET = findViewById(R.id.upload_recipe_name_et);
         EditText ingredientsET = findViewById(R.id.upload_recipe_ingredients_et);
         EditText stepET = findViewById(R.id.upload_recipe_step1_et);
-        List<String> stepListStrings = new ArrayList<>();
-        List<String> ingredientsListStrings = new ArrayList<>();
+
 
         String recipeName = recipeNameET.getText().toString();
         String ingredients = ingredientsET.getText().toString();
@@ -146,9 +150,12 @@ public class UploadRecipeActivity extends AppCompatActivity {
             stepListStrings.add(et.getText().toString());
         }
         ingredientsListStrings.add(ingredients);
-        for (EditText et: ingredientsList) {
-            ingredientsListStrings.add((et.getText().toString()));
+        if (ingredientsList != null) {
+            for (EditText et: ingredientsList) {
+                ingredientsListStrings.add((et.getText().toString()));
+            }
         }
+
         Recipe recipe = new Recipe(recipeName, ingredientsListStrings, category, stepListStrings, imageURL, userUid);
         db.collection("recipes")
                 .add(recipe)

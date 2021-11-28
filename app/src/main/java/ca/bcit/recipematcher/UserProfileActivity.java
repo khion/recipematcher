@@ -112,7 +112,7 @@ public class UserProfileActivity extends AppCompatActivity {
                     fullNameTextView.setText(fullName);
                     emailTextView.setText(email);
 
-                    if (imageUrl == null) {
+                    if (imageUrl.isEmpty()) {
                         mImageView.setImageResource(R.drawable.default_profile);
                     } else {
                         Picasso.get().load(imageUrl).into(mImageView);

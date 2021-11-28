@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onUploadClick(View view) {
         if (userID != null) {
-            Intent intent = new Intent(MainActivity.this, UserProfileActivity.class);
+            Intent intent = new Intent(MainActivity.this, UploadRecipeActivity.class);
             startActivity(intent);
         }
         if (userID == null) {
