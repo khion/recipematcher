@@ -11,8 +11,6 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -23,16 +21,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -43,14 +37,11 @@ import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserProfileActivity extends AppCompatActivity {
 
-    private FirebaseUser user;
+    private FirebaseUser userAuth;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     private StorageReference mStorageRef;
@@ -92,8 +83,8 @@ public class UserProfileActivity extends AppCompatActivity {
         ab.setDisplayHomeAsUpEnabled(true);
 
 
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        userID = user.getUid();
+        userAuth = FirebaseAuth.getInstance().getCurrentUser();
+        userID = userAuth.getUid();
         db = FirebaseFirestore.getInstance();
 
         mStorageRef = FirebaseStorage.getInstance().getReference("user");
@@ -275,6 +266,17 @@ public class UserProfileActivity extends AppCompatActivity {
 
         Task setValueTask = dbRef.set(user);
 
+        userAuth.updateEmail(email)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(UserProfileActivity.this, "The email updated.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+
         setValueTask.addOnSuccessListener(new OnSuccessListener() {
             @Override
             public void onSuccess(Object o) {
@@ -329,15 +331,8 @@ public class UserProfileActivity extends AppCompatActivity {
                 String userName = editTextUserName.getText().toString().trim();
                 String email = editTextEmail.getText().toString().trim();
 
-                if (TextUtils.isEmpty(userName)) {
-                    editTextUserName.setError("User Name is required");
-                    return;
-                } else if (TextUtils.isEmpty(email)) {
-                    editTextEmail.setError("email is required");
-                    return;
-                }
-
                 updateUser(userName, email, phone);
+
 
                 alertDialog.dismiss();
             }
