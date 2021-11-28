@@ -25,9 +25,13 @@ import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -47,6 +51,8 @@ public class SearchActivity extends AppCompatActivity {
 
     private FirebaseUser currentUser;
     private String userID;
+    FirebaseFirestore db;
+    private List<String> recipeDocIds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,12 +74,16 @@ public class SearchActivity extends AppCompatActivity {
         recipeResults = new ArrayList<Recipe>();
         animationView = findViewById(R.id.logo_animate);
 
+
+         recipeDocIds = new ArrayList<>();
+
         lvRecipeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Recipe recipe = recipeResults.get(i);
+                String recipeId = recipeDocIds.get(i);
 
-                showRecipeDialog(recipe.getRecipeName(),
+                showRecipeDialog(recipeId, recipe.getRecipeName(),
                         recipe.getCategory(),
                         recipe.getIngredients().toString(), recipe.getImageURL(),
                         recipe.getStepList());
@@ -84,6 +94,8 @@ public class SearchActivity extends AppCompatActivity {
         if (currentUser != null) {
             userID = currentUser.getUid();
         }
+        db = FirebaseFirestore.getInstance();
+
 
     }
 
@@ -96,6 +108,7 @@ public class SearchActivity extends AppCompatActivity {
      */
     public void onSearchClick(View view) {
         recipeResults.clear();
+        recipeDocIds.clear();
         String search_string = search_view.getText().toString().trim();
         if (TextUtils.isEmpty(search_string)) {
             Toast.makeText(SearchActivity.this, "Enter some keywords", Toast.LENGTH_SHORT).show();
@@ -107,6 +120,7 @@ public class SearchActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             Recipe recipe = document.toObject(Recipe.class);
+                            recipeDocIds.add(document.getId());
                             String recipeName = recipe.getRecipeName();
                             String recipeIng = "";
                             for (String ing : recipe.getIngredients()) {
@@ -124,12 +138,15 @@ public class SearchActivity extends AppCompatActivity {
                         lvRecipeList.setAdapter(adapter);
                     }
                 }
+
+
             });
         }
     }
 
     public void onPastaClick(View view) {
         recipeResults.clear();
+        recipeDocIds.clear();
         mRef.collection("recipes")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -137,6 +154,7 @@ public class SearchActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         Recipe recipe = document.toObject(Recipe.class);
+                        recipeDocIds.add(document.getId());
                         String recipeCategory = recipe.getCategory();
                         if (recipeCategory != null && recipeCategory.equals("Pasta")) {
                             recipeResults.add(recipe);
@@ -149,10 +167,12 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
+
     }
 
     public void onAsianClick(View view) {
         recipeResults.clear();
+        recipeDocIds.clear();
         mRef.collection("recipes")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -160,6 +180,7 @@ public class SearchActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         Recipe recipe = document.toObject(Recipe.class);
+                        recipeDocIds.add(document.getId());
                         String recipeCategory = recipe.getCategory();
                         if (recipeCategory != null && recipeCategory.equals("Asian")) {
                             recipeResults.add(recipe);
@@ -177,6 +198,7 @@ public class SearchActivity extends AppCompatActivity {
 
     public void onMainClick(View view) {
         recipeResults.clear();
+        recipeDocIds.clear();
         mRef.collection("recipes")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -184,6 +206,7 @@ public class SearchActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         Recipe recipe = document.toObject(Recipe.class);
+                        recipeDocIds.add(document.getId());
                         String recipeCategory = recipe.getCategory();
                         if (recipeCategory != null && recipeCategory.equals("Main")) {
                             recipeResults.add(recipe);
@@ -199,6 +222,7 @@ public class SearchActivity extends AppCompatActivity {
 
     public void onDessertClick(View view) {
         recipeResults.clear();
+        recipeDocIds.clear();
         mRef.collection("recipes")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -206,6 +230,7 @@ public class SearchActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         Recipe recipe = document.toObject(Recipe.class);
+                        recipeDocIds.add(document.getId());
                         String recipeCategory = recipe.getCategory();
                         if (recipeCategory != null && recipeCategory.equals("Dessert")) {
                             recipeResults.add(recipe);
@@ -221,6 +246,7 @@ public class SearchActivity extends AppCompatActivity {
 
     public void onHotClick(View view) {
         recipeResults.clear();
+        recipeDocIds.clear();
         mRef.collection("recipes")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -228,6 +254,7 @@ public class SearchActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         Recipe recipe = document.toObject(Recipe.class);
+                        recipeDocIds.add(document.getId());
                         String recipeCategory = recipe.getCategory();
                         if (recipeCategory != null && recipeCategory.equals("Hot")) {
                             recipeResults.add(recipe);
@@ -243,6 +270,7 @@ public class SearchActivity extends AppCompatActivity {
 
     public void onColdClick(View view) {
         recipeResults.clear();
+        recipeDocIds.clear();
         mRef.collection("recipes")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -250,6 +278,7 @@ public class SearchActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         Recipe recipe = document.toObject(Recipe.class);
+                        recipeDocIds.add(document.getId());
                         String recipeCategory = recipe.getCategory();
                         if (recipeCategory != null && recipeCategory.equals("Cold")) {
                             recipeResults.add(recipe);
@@ -272,7 +301,7 @@ public class SearchActivity extends AppCompatActivity {
      * @param recipeIngredients recipeIngredients
      * @param imageURl          imageURL
      */
-    public void showRecipeDialog(final String recipeName, String recipeCategory, String recipeIngredients, String imageURl, List<String> steps) {
+    public void showRecipeDialog(final String recipeId, final String recipeName, String recipeCategory, String recipeIngredients, String imageURl, List<String> steps) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 
         LayoutInflater inflater = getLayoutInflater();
@@ -339,6 +368,59 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
+        final Button favButton = dialogView.findViewById(R.id.add_fav_btn);
+
+
+        favButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (userID != null) {
+                    DocumentReference userRef = db.collection("users").document(userID);
+
+                    userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            User user = documentSnapshot.toObject(User.class);
+                            assert user != null;
+                            List<String> favList = user.getFavourites();
+                            if (!favList.contains(recipeId)) {
+                                userRef.update("favourites", FieldValue.arrayUnion(recipeId));
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Recipe already added to favourites", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
+
+                if (userID == null) {
+                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(SearchActivity.this);
+                    LayoutInflater inflater = getLayoutInflater();
+                    final View dialogView = inflater.inflate(R.layout.login_dialog, null);
+                    dialogBuilder.setView(dialogView);
+
+                    final AlertDialog alertDialog = dialogBuilder.create();
+                    alertDialog.show();
+
+                    final Button cancel_button = dialogView.findViewById(R.id.cancel_button);
+                    final Button login_button = dialogView.findViewById(R.id.btnLogin);
+
+                    cancel_button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            alertDialog.dismiss();
+                        }
+                    });
+
+                    login_button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(SearchActivity.this, LandingActivity.class);
+                            startActivity(intent);
+                        }
+                    });
+                }
+            }
+        });
     }
 
     @Override
