@@ -110,6 +110,7 @@ public class RecipeDisplayFragment extends Fragment {
 
     private void displayRecipeInfo(View v, String recipeID) {
         TextView name = v.findViewById(R.id.recipe_name);
+//        TextView ingredients = v.findViewById(R.id.recipe_instructions);
         ImageView image = v.findViewById(R.id.recipe_image);
         DocumentReference recipeDocRef = db.collection("recipes").document(recipeID);
         recipeDocRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -117,6 +118,7 @@ public class RecipeDisplayFragment extends Fragment {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 Recipe r = documentSnapshot.toObject(Recipe.class);
                 name.setText(r.getRecipeName());
+//                ingredients.setText(r.getIngredients());
                 Picasso.get().load(r.getImageURL()).into(image);
             }
         });

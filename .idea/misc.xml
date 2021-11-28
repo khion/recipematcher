@@ -9,10 +9,10 @@
         <entry key="..\:/Users/JeffX/Desktop/BCIT/COMP 3717/Android Studio/recipematcher/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/JeffX/Desktop/BCIT/COMP 3717/Android Studio/recipematcher/app/src/main/res/layout/activity_upload_recipe.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/JeffX/Desktop/BCIT/COMP 3717/Android Studio/recipematcher/app/src/main/res/layout/activity_user_profile.xml" value="0.18518518518518517" />
+        <entry key="..\:/Users/JeffX/Desktop/BCIT/COMP 3717/Android Studio/recipematcher/app/src/main/res/layout/fragment_recipe_display.xml" value="0.2020389249304912" />
         <entry key="..\:/Users/JeffX/Desktop/BCIT/COMP 3717/Android Studio/recipematcher/app/src/main/res/layout/toolbar.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/JeffX/Desktop/BCIT/COMP 3717/Android Studio/recipematcher/app/src/main/res/menu/menu_bar.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/JeffX/Desktop/BCIT/COMP 3717/Android Studio/recipematcher/app/src/main/res/menu/menu_nav.xml" value="0.3333333333333333" />
-        <entry key="app/src/main/res/drawable-v24/custom_btn2.xml" value="0.21481481481481482" />
         <entry key="app/src/main/res/drawable-v24/custom_button.xml" value="0.3515625" />
         <entry key="app/src/main/res/drawable-v24/pagebackground.xml" value="0.3515625" />
         <entry key="app/src/main/res/drawable-v24/toolbar.xml" value="0.3515625" />
@@ -20,8 +20,6 @@
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/toolbar.xml" value="0.33541666666666664" />
-        <entry key="app/src/main/res/layout/update_user_dialog.xml" value="0.1" />
-        <entry key="app/src/main/res/menu/menu_bar.xml" value="0.2682291666666667" />
       </map>
     </option>
   </component>
