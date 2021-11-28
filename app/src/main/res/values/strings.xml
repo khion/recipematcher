@@ -51,6 +51,8 @@
     <string name="steps">Steps</string>
     <string name="ingredients_txt">Ingredients</string>
     <string name="rating_txt">Rating</string>
+    <string name="cancel_txt">cancel</string>
+    <string name="login_user">You must login first!</string>
 
     <!-- UploadedRecipes activity -->
     <string name="no_recipes_text">You Haven\'t Uploaded Any Recipes</string>
@@ -73,6 +75,7 @@
 
     <!-- View Recipe Activity -->
     <string name="favourite_button_text">Add to Favourites</string>
+
 
 
 </resources>

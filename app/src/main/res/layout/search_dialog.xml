@@ -26,7 +26,21 @@
             android:layout_marginEnd="10dp"
             android:layout_gravity="right"
             tools:ignore="RtlHardcoded" />
+
     </LinearLayout>
+
+    <Button
+        android:id="@+id/add_fav_btn"
+        android:layout_width="120dp"
+        android:layout_height="20dp"
+        android:text="@string/favourite_button_text"
+        android:background="@drawable/custom_button3"
+        android:layout_margin="5dp"
+        android:layout_gravity="center"
+        android:textSize="13sp"
+        android:textColor="@color/white"
+        android:textAllCaps="false"/>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -63,7 +77,6 @@
                 android:layout_weight="1.75"
                 android:layout_height="wrap_content"
                 android:text=""/>
-
 
         </LinearLayout>
 

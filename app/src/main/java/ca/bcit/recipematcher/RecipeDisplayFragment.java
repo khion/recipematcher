@@ -115,7 +115,9 @@ public class RecipeDisplayFragment extends Fragment {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 Recipe r = documentSnapshot.toObject(Recipe.class);
-                name.setText(r.getRecipeName());
+                assert r != null;
+                String recipeName = r.getRecipeName();
+                name.setText(recipeName);
 //                ingredients.setText(r.getIngredients());
                 Picasso.get().load(r.getImageURL()).into(image);
             }

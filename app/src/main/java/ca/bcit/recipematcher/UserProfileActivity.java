@@ -115,7 +115,6 @@ public class UserProfileActivity extends AppCompatActivity {
                     if (imageUrl == null) {
                         mImageView.setImageResource(R.drawable.default_profile);
                     } else {
-
                         Picasso.get().load(imageUrl).into(mImageView);
                     }
                 }

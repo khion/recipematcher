@@ -155,6 +155,7 @@
             android:textColor="@color/white"
             android:padding="10dp"
             android:layout_margin="10dp"
+            android:scrollbars="none"
             android:text=""/>
     </RelativeLayout>
 
