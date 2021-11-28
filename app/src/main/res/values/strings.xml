@@ -37,7 +37,7 @@
     <string name="recipe_name">Recipe Name</string>
     <string name="upload_dish_text">Upload a photo of your dish!</string>
     <string name="select_photo">Select photo</string>
-    <string name="ingredients">Ingredients:</string>
+    <string name="recipe_ingredients">Ingredients:</string>
     <string name="step_1">Step 1:</string>
     <string name="recipe_instructions">Instruction details</string>
     <string name="add_step">add step</string>
@@ -75,6 +75,8 @@
 
     <!-- View Recipe Activity -->
     <string name="favourite_button_text">Add to Favourites</string>
+    <string name="ingredients">Ingredients:</string>
+    <string name="recipe_steps">Recipe Steps:</string>
 
 
 

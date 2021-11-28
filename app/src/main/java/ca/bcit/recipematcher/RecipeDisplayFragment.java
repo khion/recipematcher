@@ -108,17 +108,41 @@ public class RecipeDisplayFragment extends Fragment {
 
     private void displayRecipeInfo(View v, String recipeID) {
         TextView name = v.findViewById(R.id.recipe_name);
-//        TextView ingredients = v.findViewById(R.id.recipe_instructions);
+        TextView ingredients = v.findViewById(R.id.recipe_ingredients);
+        TextView steps = v.findViewById(R.id.recipe_steps);
         ImageView image = v.findViewById(R.id.recipe_image);
         DocumentReference recipeDocRef = db.collection("recipes").document(recipeID);
         recipeDocRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 Recipe r = documentSnapshot.toObject(Recipe.class);
-                assert r != null;
-                String recipeName = r.getRecipeName();
-                name.setText(recipeName);
-//                ingredients.setText(r.getIngredients());
+                name.setText(r.getRecipeName());
+
+                String ingredientsString = "";
+
+                for (int i = 0; i < r.getIngredients().size(); i++) {
+                    ingredientsString += "• " + r.getIngredients().get(i);
+
+                    if (i + 1 < r.getIngredients().size()) {
+                        ingredientsString += "\n\n";
+                    }
+                }
+
+                ingredients.setText(ingredientsString);
+
+                List<String> stepList = r.getStepList();
+                String stepListString = "";
+
+                for(int i = 0; i < stepList.size(); i++) {
+                    stepListString += "Step " + (i + 1) + ": " + stepList.get(i);
+
+                    if (i + 1 < r.getStepList().size()) {
+                        stepListString += "\n\n";
+                    }
+                }
+
+                steps.setText(stepListString);
+
                 Picasso.get().load(r.getImageURL()).into(image);
             }
         });
