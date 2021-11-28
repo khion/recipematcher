@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Recipe {
     private String recipeName;
-    private String ingredients;
+    private List<String> ingredients;
     private String category;
     private int rating;
     private List<String> stepList;
@@ -14,7 +14,7 @@ public class Recipe {
     // Empty constructor required by Firestore
     public Recipe() {};
 
-    public Recipe(String recipeName, String ingredients, String category, List<String> stepList, String imageURL, String userUid) {
+    public Recipe(String recipeName, List<String> ingredients, String category, List<String> stepList, String imageURL, String userUid) {
         this.recipeName = recipeName;
         this.ingredients = ingredients;
         this.category = category;
@@ -28,7 +28,7 @@ public class Recipe {
         return recipeName;
     }
 
-    public String getIngredients() {
+    public List<String> getIngredients() {
         return ingredients;
     }
 
@@ -52,7 +52,7 @@ public class Recipe {
         this.recipeName = recipeName;
     }
 
-    public void setIngredients(String ingredients) {
+    public void setIngredients(List<String> ingredients) {
         this.ingredients = ingredients;
     }
 

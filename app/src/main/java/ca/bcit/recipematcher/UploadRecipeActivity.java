@@ -55,10 +55,11 @@ public class UploadRecipeActivity extends AppCompatActivity {
     Spinner categorySpinner;
 
     int stepNum = 1;
+    int ingredientNum = 1;
 
     Uri selectedImage;
     List<EditText> stepsList;
-
+    List<EditText> ingredientsList;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private StorageReference mStorageRef;
@@ -134,6 +135,7 @@ public class UploadRecipeActivity extends AppCompatActivity {
         EditText ingredientsET = findViewById(R.id.upload_recipe_ingredients_et);
         EditText stepET = findViewById(R.id.upload_recipe_step1_et);
         List<String> stepListStrings = new ArrayList<>();
+        List<String> ingredientsListStrings = new ArrayList<>();
 
         String recipeName = recipeNameET.getText().toString();
         String ingredients = ingredientsET.getText().toString();
@@ -143,7 +145,11 @@ public class UploadRecipeActivity extends AppCompatActivity {
         for (EditText et: stepsList) {
             stepListStrings.add(et.getText().toString());
         }
-        Recipe recipe = new Recipe(recipeName, ingredients, category, stepListStrings, imageURL, userUid);
+        ingredientsListStrings.add(ingredients);
+        for (EditText et: ingredientsList) {
+            ingredientsListStrings.add((et.getText().toString()));
+        }
+        Recipe recipe = new Recipe(recipeName, ingredientsListStrings, category, stepListStrings, imageURL, userUid);
         db.collection("recipes")
                 .add(recipe)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -281,5 +287,31 @@ public class UploadRecipeActivity extends AppCompatActivity {
         instructionRow.addView(recipeStepText);
         instructionRow.addView(recipeStepInput);
         instructionTable.addView(instructionRow);
+    }
+
+    public void onAddIngredientClick(View view) {
+        ingredientNum++;
+
+        TableLayout ingredientTable = (TableLayout) findViewById(R.id.recipe_ingredients);
+
+        TableRow ingredientRow = new TableRow(this);
+        ingredientRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+
+        // New step text
+        TextView recipeIngredientText = new TextView(this);
+        recipeIngredientText.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+        String text = "Ingredient " + ingredientNum + ":";
+        recipeIngredientText.setText(text);
+
+        // New step input
+        EditText recipeIngredientInput = new EditText(this);
+        recipeIngredientInput.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
+        recipeIngredientInput.setHint("");
+        stepsList.add(recipeIngredientInput);
+
+        // Add to instructions
+        ingredientRow.addView(recipeIngredientText);
+        ingredientRow.addView(recipeIngredientInput);
+        ingredientTable.addView(ingredientRow);
     }
 }

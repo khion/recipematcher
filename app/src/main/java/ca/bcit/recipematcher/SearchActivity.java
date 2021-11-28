@@ -70,7 +70,7 @@ public class SearchActivity extends AppCompatActivity {
 
                 showRecipeDialog(recipe.getRecipeName(),
                         recipe.getCategory(),
-                        recipe.getIngredients(), recipe.getImageURL(),
+                        recipe.getIngredients().toString(), recipe.getImageURL(),
                         recipe.getStepList());
             }
         });
@@ -98,7 +98,12 @@ public class SearchActivity extends AppCompatActivity {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             Recipe recipe = document.toObject(Recipe.class);
                             String recipeName = recipe.getRecipeName();
-                            String recipeIng = recipe.getIngredients();
+                            String recipeIng = "";
+                            for (String ing : recipe.getIngredients()) {
+                                if (ing.equals(search_string)) {
+                                    recipeIng = ing;
+                                }
+                            }
                             if (recipeName.contains(search_string) || recipeIng.contains(search_string)) {
                                 recipeResults.add(recipe);
                             }

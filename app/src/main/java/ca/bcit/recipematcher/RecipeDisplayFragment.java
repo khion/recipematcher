@@ -117,13 +117,28 @@ public class RecipeDisplayFragment extends Fragment {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 Recipe r = documentSnapshot.toObject(Recipe.class);
                 name.setText(r.getRecipeName());
-                ingredients.setText(r.getIngredients());
+
+                String ingredientsString = "";
+
+                for (int i = 0; i < r.getIngredients().size(); i++) {
+                    ingredientsString += "• " + r.getIngredients().get(i);
+
+                    if (i + 1 < r.getIngredients().size()) {
+                        ingredientsString += "\n\n";
+                    }
+                }
+
+                ingredients.setText(ingredientsString);
 
                 List<String> stepList = r.getStepList();
                 String stepListString = "";
 
                 for(int i = 0; i < stepList.size(); i++) {
-                    stepListString += "Step " + (i + 1) + ": " + stepList.get(i) + "\n\n";
+                    stepListString += "Step " + (i + 1) + ": " + stepList.get(i);
+
+                    if (i + 1 < r.getStepList().size()) {
+                        stepListString += "\n\n";
+                    }
                 }
 
                 steps.setText(stepListString);
