@@ -46,7 +46,6 @@ public class RecipeSearchAdapter extends ArrayAdapter<Recipe> {
         String imageURL = recipe.getImageURL();
         Picasso.get().load(imageURL).into(recipeImage);
 
-
         return listViewItem;
     }
 

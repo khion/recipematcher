@@ -8,12 +8,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -21,10 +24,16 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -32,7 +41,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
     private FirebaseUser user;
     private FirebaseAuth mAuth;
-    private DatabaseReference reference;
+    private FirebaseFirestore db;
     private StorageReference mStorageRef;
     private StorageTask mUploadTask;
 
@@ -41,6 +50,8 @@ public class UserProfileActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
     private TextView mButtonChooseImage;
     private Button mButtonSave;
+    private Button mButtonRecipeList;
+    private ListView mListUploadedRecipes;
 
     private CircleImageView mImageView;
     private ProgressBar mProgressBar;
@@ -71,8 +82,8 @@ public class UserProfileActivity extends AppCompatActivity {
 
 
         user = FirebaseAuth.getInstance().getCurrentUser();
-        reference = FirebaseDatabase.getInstance().getReference("user");
         userID = user.getUid();
+        db = FirebaseFirestore.getInstance();
 
         mStorageRef = FirebaseStorage.getInstance().getReference("user");
 
@@ -82,37 +93,31 @@ public class UserProfileActivity extends AppCompatActivity {
 
         mProgressBar = findViewById(R.id.progress_bar);
         mProgressBar.setVisibility(View.INVISIBLE);
+        mListUploadedRecipes = findViewById(R.id.uploaded_recipe_list);
 
 
-        reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+        DocumentReference userDocRef = db.collection("users").document(userID);
+        userDocRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                userProfile = snapshot.getValue(User.class);
-
-                if (userProfile != null) {
-                    fullName = userProfile.getName();
-                    email = userProfile.getEmail();
-                    phone = userProfile.getPhone();
-                    imageUrl = userProfile.getImage();
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                User user = documentSnapshot.toObject(User.class);
+                if (user != null) {
+                    fullName = user.getName();
+                    email = user.getEmail();
+                    phone = user.getPhone();
+                    imageUrl = user.getImage();
 
                     fullNameTextView.setText(fullName);
                     emailTextView.setText(email);
-
                 }
             }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(UserProfileActivity.this, "Cannot display the profile information", Toast.LENGTH_SHORT).show();
-
-            }
-
         });
 
 
         // Image upload codes in on create method ///
         mButtonChooseImage = findViewById(R.id.edit_image);
         mButtonSave = findViewById(R.id.save_image);
+        mButtonRecipeList = findViewById(R.id.collection_btn);
         mImageView = findViewById(R.id.profile_image);
         mProgressBar = findViewById(R.id.progress_bar);
         mButtonSave.setVisibility(View.INVISIBLE);
@@ -123,6 +128,18 @@ public class UserProfileActivity extends AppCompatActivity {
 
             }
         });
+
+        mButtonRecipeList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startUploadedRecipesActivity();
+            }
+        });
+    }
+
+    private void startUploadedRecipesActivity() {
+        Intent i = new Intent(this, UploadedRecipesActivity.class);
+        startActivity(i);
     }
 
     private void openFileChooser() {
