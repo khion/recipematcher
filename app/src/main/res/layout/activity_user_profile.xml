@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/pagebackground"
     tools:context=".UserProfileActivity">
 
     <include
@@ -14,15 +14,13 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_image"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_gravity="center"
+        android:layout_marginTop="20dp"
         android:src="@drawable/ic_person"
         app:civ_border_color="@color/white"
-        app:civ_border_width="2dp"
-        />
-
-
+        app:civ_border_width="3dp" />
 
     <TextView
         android:id="@+id/edit_image"
@@ -34,7 +32,7 @@
         android:layout_marginTop="-25dp"
         android:layout_marginStart="230dp"
         app:drawableStartCompat="@drawable/ic_add"
-        app:drawableTint="@color/dark_blue" />
+        app:drawableTint="@color/dark_grey" />
 
     <Button
         android:id="@+id/save_image"
@@ -94,24 +92,16 @@
 
     </LinearLayout>
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
+    <Button
+        android:id="@+id/edit"
+        android:layout_gravity="center"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:background="@drawable/custom_button"
+        android:textColor="@color/white"
         android:layout_marginTop="10dp"
-        android:orientation="vertical">
-
-        <Button
-            android:id="@+id/upload_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/upload_a_recipe"
-            android:onClick="onUploadRecipeClick"
-            android:drawableStart="@drawable/ic_upload"
-            android:textAllCaps="false"/>
-    </LinearLayout>
-
+        android:text="@string/edit"
+        android:textAllCaps="false"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -146,8 +136,26 @@
             android:layout_height="150dp"
             android:layout_margin="3dp"
             android:textStyle="bold"
+            android:onClick="onYoutubeClick"
             android:background="@drawable/custom_tiles"
-            android:text="@string/host_txt" />
+            android:text="@string/video_txt" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/upload_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/upload_a_recipe"
+            android:onClick="onUploadRecipeClick"
+            android:drawableStart="@drawable/ic_upload"
+            android:textAllCaps="false"/>
     </LinearLayout>
 
     <ListView
@@ -163,13 +171,5 @@
 
 
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:onClick="onLogoutClick"
-        android:layout_gravity="center"
-        android:textAllCaps="false"
-        android:text="@string/logout" />
 
 </LinearLayout>

@@ -2,7 +2,7 @@
     <string name="app_name">Recipe Matcher</string>
 
     <string name="welcome">Recipe Matcher</string>
-    <string name="email_hint">Email: </string>
+    <string name="email_hint">Email </string>
 
     <string name="logout">logout</string>
     <string name="user">user</string>
@@ -55,10 +55,12 @@
     <!-- UploadedRecipes activity -->
     <string name="no_recipes_text">You Haven\'t Uploaded Any Recipes</string>
     <string name="delete_upload_btn_txt">Delete</string>
+    <string name="edit">Edit</string>
 
     <!-- FavouritedRecipes activity -->
     <string name="no_favs_text">You Haven\'t Favourited Any Recipes</string>
     <string name="remove_fav_btn_txt">Remove</string>
+
 
     <string-array name="category_array">
         <item>Pasta</item>

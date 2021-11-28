@@ -33,8 +33,6 @@ public class RegisterActivity extends AppCompatActivity {
     private ProgressBar progressBar;
 
     private FirebaseAuth fAuth;
-    private FirebaseDatabase database;
-    private DatabaseReference mDatabase;
     private User user;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -60,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String password = editPassword.getText().toString().trim();
                 String fullName = editName.getText().toString().trim();
                 String phone = " ";
-                String image = " ";
+                String image = null;
 
                 if (TextUtils.isEmpty(email)) {
                     editEmail.setError("Email is required");

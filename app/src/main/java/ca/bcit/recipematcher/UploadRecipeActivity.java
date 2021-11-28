@@ -195,8 +195,6 @@ public class UploadRecipeActivity extends AppCompatActivity {
                     dialog.dismiss();
                 }
             }
-
-
         });
 
         builder.show();
