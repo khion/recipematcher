@@ -6,10 +6,11 @@ public class Recipe {
     private String recipeName;
     private List<String> ingredients;
     private String category;
-    private int rating;
+    private double rating;
     private List<String> stepList;
     private String imageURL;
     private String userUid;
+    private int ratingCount;
 
     // Empty constructor required by Firestore
     public Recipe() {};
@@ -22,6 +23,7 @@ public class Recipe {
         this.imageURL = imageURL;
         this.userUid = userUid;
         rating = 0;
+        ratingCount = 0;
     }
 
     public String getRecipeName() {
@@ -36,7 +38,7 @@ public class Recipe {
         return category;
     }
 
-    public int getRating() {
+    public double getRating() {
         return rating;
     }
 
@@ -60,10 +62,6 @@ public class Recipe {
         this.category = category;
     }
 
-    public void setRating(int rating) {
-        this.rating = rating;
-    }
-
     public void setStepList(List<String> stepList) {
         this.stepList = stepList;
     }
@@ -74,5 +72,17 @@ public class Recipe {
 
     public void setUserUid(String userUid) {
         this.userUid = userUid;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
+    public int getRatingCount() {
+        return ratingCount;
+    }
+
+    public void setRatingCount(int ratingCount) {
+        this.ratingCount = ratingCount;
     }
 }

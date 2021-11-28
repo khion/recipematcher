@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -26,6 +27,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ViewRecipeActivity extends AppCompatActivity {
 
@@ -35,8 +37,10 @@ public class ViewRecipeActivity extends AppCompatActivity {
 
     // Layout variables
     Button favButton;
+    Button submitRatingButton;
 
     private String userID;
+    private String recipeID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +64,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
         favButton = findViewById(R.id.add_fav_btn);
 
         Bundle bundle = getIntent().getExtras();
-        String recipeID = bundle.getString("RecipeID");
+        recipeID = bundle.getString("RecipeID");
         displayRecipe(recipeID);
 
         favButton.setOnClickListener(new View.OnClickListener() {
@@ -124,6 +128,9 @@ public class ViewRecipeActivity extends AppCompatActivity {
         TextView ingredients = findViewById(R.id.recipe_ingredients);
         TextView steps = findViewById(R.id.recipe_steps);
         ImageView image = findViewById(R.id.recipe_image);
+        TextView ratingText = findViewById(R.id.recipe_rating_tv);
+        submitRatingButton = findViewById(R.id.submit_rating_button);
+        TextView submittedTV = findViewById(R.id.submitted_tv);
         DocumentReference recipeDocRef = db.collection("recipes").document(recipeID);
         recipeDocRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -156,21 +163,64 @@ public class ViewRecipeActivity extends AppCompatActivity {
 
                 steps.setText(stepListString);
 
-                Picasso.get().load(r.getImageURL()).into(image);
+                if (user == null) {
+                    submitRatingButton.setVisibility(View.INVISIBLE);
+                    submittedTV.setText("Log in to rate");
+                }
+
                 double recipeRating = r.getRating();
-                Button submitRatingButton = findViewById(R.id.submit_rating_button);
-                submitRatingButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        submitRatingButton.setVisibility(View.INVISIBLE);
-                        RatingBar ratingBar = findViewById(R.id.recipe_rating_bar);
-                        int newRating = (int) ratingBar.getRating();
-                        //int ratingCount = recipe.getRatingCount();
-                        //ratingCount++;
-                        //recipeDocRef.update("rating", (recipeRating + newRating) / ratingCount);
-                        //recipeDocRef.update("ratingCount", ratingCount);
-                    }
-                });
+
+                if (userID != null) {
+                    handleRatings(r, recipeDocRef, recipeRating);
+                }
+
+
+                Picasso.get().load(r.getImageURL()).into(image);
+
+                int ratingCount = r.getRatingCount();
+                double rating = recipeRating / ratingCount;
+                if (ratingCount == 0) {
+                    ratingText.setText(getResources().getString(R.string.no_ratings_text));
+                } else {
+                    // Format rating to show one decimal point
+                    ratingText.setText(String.format(Locale.CANADA, "%.1f", rating));
+                }
+
+            }
+        });
+    }
+
+    /**
+     * Allow logged in users to rate the recipes. Users can only rate once. Users without an account
+     * cannot rate
+     * @param r a Recipe
+     * @param recipeDocRef DocumentReference to a recipe
+     * @param recipeRating the Recipe's rating
+     */
+    public void handleRatings(Recipe r, DocumentReference recipeDocRef, double recipeRating) {
+        DocumentReference userDocRef = db.collection("users").document(userID);
+        userDocRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                User user = documentSnapshot.toObject(User.class);
+                List<String> ratedRecipes = user.getRatedRecipes();
+                if (ratedRecipes.contains(recipeID)) {
+                    submitRatingButton.setVisibility(View.INVISIBLE);
+                } else {
+                    submitRatingButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            submitRatingButton.setVisibility(View.INVISIBLE);
+                            RatingBar ratingBar = findViewById(R.id.recipe_rating_bar);
+                            int newRating = (int) ratingBar.getRating();
+                            int ratingCount = r.getRatingCount();
+                            ratingCount++;
+                            recipeDocRef.update("rating", (recipeRating + newRating));
+                            recipeDocRef.update("ratingCount", ratingCount);
+                            userDocRef.update("ratedRecipes", FieldValue.arrayUnion(recipeID));
+                        }
+                    });
+                }
             }
         });
     }

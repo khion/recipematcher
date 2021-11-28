@@ -13,6 +13,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -113,6 +114,7 @@ public class RecipeDisplayFragment extends Fragment {
     private void displayRecipeInfo(View v, String recipeID) {
         TextView name = v.findViewById(R.id.recipe_name);
         ImageView image = v.findViewById(R.id.recipe_image);
+        RatingBar ratingBar = v.findViewById(R.id.main_page_rating_bar);
         DocumentReference recipeDocRef = db.collection("recipes").document(recipeID);
         recipeDocRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -120,6 +122,13 @@ public class RecipeDisplayFragment extends Fragment {
                 Recipe r = documentSnapshot.toObject(Recipe.class);
                 name.setText(r.getRecipeName());
                 Picasso.get().load(r.getImageURL()).into(image);
+                int ratingCount = r.getRatingCount();
+                if (ratingCount == 0) {
+                    ratingBar.setRating(0);
+                } else {
+                    double rating = r.getRating() / ratingCount;
+                    ratingBar.setRating((float) rating);
+                }
             }
         });
         v.setOnClickListener(new View.OnClickListener() {

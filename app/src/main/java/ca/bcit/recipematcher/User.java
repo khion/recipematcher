@@ -10,6 +10,7 @@ public class User {
     private String image;
     private List<String> recipes;
     private List<String> favourites;
+    private List<String> ratedRecipes;
 
     public User() {
 
@@ -21,6 +22,7 @@ public class User {
         this.image = image;
         this.recipes = new ArrayList<>();
         this.favourites = new ArrayList<>();
+        this.ratedRecipes = new ArrayList<>();
     }
 
     public List<String> getFavourites() {
@@ -65,5 +67,13 @@ public class User {
         this.image = image;
     }
 
-    public void setRecipes(List<String> recipes) { this.recipes = recipes; };
+    public void setRecipes(List<String> recipes) { this.recipes = recipes; }
+
+    public List<String> getRatedRecipes() {
+        return ratedRecipes;
+    }
+
+    public void setRatedRecipes(List<String> ratedRecipes) {
+        this.ratedRecipes = ratedRecipes;
+    }
 }

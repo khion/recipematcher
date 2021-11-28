@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Locale;
 
 public class RecipeSearchAdapter extends ArrayAdapter<Recipe> {
     private Activity context;
@@ -42,7 +43,13 @@ public class RecipeSearchAdapter extends ArrayAdapter<Recipe> {
         Recipe recipe = recipeList.get(position);
         tvRecipeName.setText(recipe.getRecipeName());
         tvCategory.setText("Category: " + recipe.getCategory());
-        tvRating.setText("Rating: " + recipe.getRating());
+        int ratingCount = recipe.getRatingCount();
+        if (ratingCount == 0) {
+            tvRating.setText(getContext().getResources().getString(R.string.no_ratings_text));
+        } else {
+            String ratingFormatted = String.format(Locale.CANADA, "%.1f", recipe.getRating() / ratingCount);
+            tvRating.setText("Rating: " + ratingFormatted);
+        }
         String imageURL = recipe.getImageURL();
         Picasso.get().load(imageURL).into(recipeImage);
 
