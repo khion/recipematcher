@@ -31,16 +31,20 @@ public class VideoPlayer extends AppCompatActivity {
         YOUTUBE_URL = getIntent().getExtras().getString("URL");
         YOUTUBE_TITLE = getIntent().getExtras().getString("title");
 
-        TextView tvVideoTitle= findViewById(R.id.video_title);
-        tvVideoTitle.setText(YOUTUBE_TITLE);
-        YouTubePlayerView youTubePlayerView = findViewById(R.id.video_view);
 
+        YouTubePlayerView youTubePlayerView = findViewById(R.id.video_view);
         youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
             @Override
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
                 youTubePlayer.cueVideo(YOUTUBE_URL, 0);
             }
         });
+
+        youTubePlayerView.enterFullScreen();
+        youTubePlayerView.exitFullScreen();
+
+        TextView tvVideoTitle= findViewById(R.id.video_title);
+        tvVideoTitle.setText(YOUTUBE_TITLE);
     }
 
     @Override

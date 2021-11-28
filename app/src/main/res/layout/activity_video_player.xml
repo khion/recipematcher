@@ -11,14 +11,18 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 
-    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-        android:id="@+id/video_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:autoPlay="false"
-        app:showFullScreenButton="true"
-        app:useWebUi="true" />
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+       <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+           android:id="@+id/video_view"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           app:autoPlay="false"
+           app:showFullScreenButton="true"
+           />
 
+   </LinearLayout>
     <TextView
         android:id="@+id/video_title"
         android:layout_width="match_parent"
