@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -26,6 +27,7 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -42,6 +44,9 @@ public class SearchActivity extends AppCompatActivity {
     private ListView lvRecipeList;
     private List<Recipe> recipeResults;
     private LottieAnimationView animationView;
+
+    private FirebaseUser currentUser;
+    private String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +79,11 @@ public class SearchActivity extends AppCompatActivity {
                         recipe.getStepList());
             }
         });
+
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            userID = currentUser.getUid();
+        }
 
     }
 
@@ -347,10 +357,38 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void onUserProfileClick(MenuItem menu) {
-        FirebaseAuth fAuth = FirebaseAuth.getInstance();
+        if (userID != null) {
+            Intent intent = new Intent(SearchActivity.this, UserProfileActivity.class);
+            startActivity(intent);
+        }
+        if (userID == null) {
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(SearchActivity.this);
+            LayoutInflater inflater = getLayoutInflater();
+            final View dialogView = inflater.inflate(R.layout.login_dialog, null);
+            dialogBuilder.setView(dialogView);
 
-        Intent intent = new Intent(this, UserProfileActivity.class);
-        startActivity(intent);
+            final AlertDialog alertDialog = dialogBuilder.create();
+            alertDialog.show();
+
+
+            final Button cancel_button = dialogView.findViewById(R.id.cancel_button);
+            final Button login_button = dialogView.findViewById(R.id.btnLogin);
+
+            cancel_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    alertDialog.dismiss();
+                }
+            });
+
+            login_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(SearchActivity.this, LandingActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }
     }
 
     @Override

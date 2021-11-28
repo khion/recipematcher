@@ -102,9 +102,38 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onUploadClick(View view) {
+        if (userID != null) {
+            Intent intent = new Intent(MainActivity.this, UserProfileActivity.class);
+            startActivity(intent);
+        }
+        if (userID == null) {
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MainActivity.this);
+            LayoutInflater inflater = getLayoutInflater();
+            final View dialogView = inflater.inflate(R.layout.login_dialog, null);
+            dialogBuilder.setView(dialogView);
 
-        Intent intent = new Intent(this, UploadRecipeActivity.class);
-        startActivity(intent);
+            final AlertDialog alertDialog = dialogBuilder.create();
+            alertDialog.show();
+
+
+            final Button cancel_button = dialogView.findViewById(R.id.cancel_button);
+            final Button login_button = dialogView.findViewById(R.id.btnLogin);
+
+            cancel_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    alertDialog.dismiss();
+                }
+            });
+
+            login_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(MainActivity.this, LandingActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }
     }
 
     public void onStreamingClick(View view) {
