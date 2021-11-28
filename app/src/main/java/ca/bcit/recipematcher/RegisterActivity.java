@@ -57,8 +57,8 @@ public class RegisterActivity extends AppCompatActivity {
                 String email = editEmail.getText().toString().trim();
                 String password = editPassword.getText().toString().trim();
                 String fullName = editName.getText().toString().trim();
-                String phone = " ";
-                String image = null;
+                String phone = "";
+                String image = "";
 
                 if (TextUtils.isEmpty(email)) {
                     editEmail.setError("Email is required");
