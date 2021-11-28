@@ -119,16 +119,43 @@ public class ViewRecipeActivity extends AppCompatActivity {
      * @param recipeID the ID of a recipe
      */
     public void displayRecipe(String recipeID) {
+        TextView name = findViewById(R.id.recipe_name);
+        TextView ingredients = findViewById(R.id.recipe_ingredients);
+        TextView steps = findViewById(R.id.recipe_steps);
+        ImageView image = findViewById(R.id.recipe_image);
         DocumentReference recipeDocRef = db.collection("recipes").document(recipeID);
         recipeDocRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                Recipe recipe = documentSnapshot.toObject(Recipe.class);
-                TextView name = findViewById(R.id.recipe_name_tv);
-                ImageView image = findViewById(R.id.recipe_image_view);
-                assert recipe != null;
-                name.setText(recipe.getRecipeName());
-                Picasso.get().load(recipe.getImageURL()).into(image);
+                Recipe r = documentSnapshot.toObject(Recipe.class);
+                name.setText(r.getRecipeName());
+
+                String ingredientsString = "";
+
+                for (int i = 0; i < r.getIngredients().size(); i++) {
+                    ingredientsString += "• " + r.getIngredients().get(i);
+
+                    if (i + 1 < r.getIngredients().size()) {
+                        ingredientsString += "\n\n";
+                    }
+                }
+
+                ingredients.setText(ingredientsString);
+
+                List<String> stepList = r.getStepList();
+                String stepListString = "";
+
+                for (int i = 0; i < stepList.size(); i++) {
+                    stepListString += "Step " + (i + 1) + ": " + stepList.get(i);
+
+                    if (i + 1 < r.getStepList().size()) {
+                        stepListString += "\n\n";
+                    }
+                }
+
+                steps.setText(stepListString);
+
+                Picasso.get().load(r.getImageURL()).into(image);
             }
         });
     }
