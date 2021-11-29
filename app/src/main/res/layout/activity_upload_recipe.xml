@@ -101,7 +101,7 @@
                     <EditText
                         android:id="@+id/upload_recipe_ingredients_et"
                         android:layout_width="match_parent"
-                        android:hint="@string/ingredients" />
+                        android:hint="@string/ingredients_hint" />
                 </TableRow>
             </TableLayout>
 
@@ -139,7 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:onClick="onAddIngredientClick"
-                android:text="Add ingredient" />
+                android:text="@string/add_ingredient" />
 
             <Button
                 android:id="@+id/btnUpload"
