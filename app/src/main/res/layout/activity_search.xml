@@ -124,7 +124,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="40dp"
-            android:text="@string/main_txt"
+            android:text="@string/cold_txt"
             android:onClick="onColdClick"
             android:textAllCaps="false"/>
 
