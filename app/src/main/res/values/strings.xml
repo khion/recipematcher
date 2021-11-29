@@ -78,7 +78,10 @@
     <string name="ingredients">Ingredients:</string>
     <string name="recipe_steps">Recipe Steps:</string>
     <string name="no_ratings_text">No Ratings Yet</string>
-
+    <string name="swipe_instructions">Recipe Swipe:</string>
+    <string name="instruction_left">Left: Previous Recipe</string>
+    <string name="instruction_up">Up: Display Recipe</string>
+    <string name="instruction_right">Right: Next Recipe</string>
 
 
 </resources>
