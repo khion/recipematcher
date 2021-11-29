@@ -29,11 +29,13 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 
 public class RecipeDisplayFragment extends Fragment {
 
-    FirebaseFirestore db;
+    private FirebaseFirestore db;
+    private int recipeDocIdsIndex;
 
 
     public RecipeDisplayFragment() {
@@ -58,11 +60,12 @@ public class RecipeDisplayFragment extends Fragment {
                             recipeDocIds.add(recipeDocument.getId());
                         }
                         View v = getView();
-                        displayRecipeInfo(v, recipeDocIds.get(0));
+                        Random random = new Random();
+                        recipeDocIdsIndex = random.nextInt(recipeDocIds.size());
+                        displayRecipeInfo(v, recipeDocIds.get(recipeDocIdsIndex));
 
                         view.setOnTouchListener(new onSwipeTouchListener(view.getContext()) {
                             String recipeDocId = "";
-                            int recipeDocIdsIndex = 0;
 
                             public void onSwipeTop() {
                                 Intent i = new Intent(getActivity(), ViewRecipeActivity.class);
@@ -90,10 +93,6 @@ public class RecipeDisplayFragment extends Fragment {
                                     recipeDocId = recipeDocIds.get(recipeDocIdsIndex);
                                     displayRecipeInfo(v, recipeDocId);
                                 }
-                            }
-
-                            public void onSwipeBottom() {
-                                Toast.makeText(view.getContext(), "bottom", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
