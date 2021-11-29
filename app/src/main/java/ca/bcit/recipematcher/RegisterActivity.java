@@ -66,16 +66,14 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
                 if (TextUtils.isEmpty(password)) {
-                    editEmail.setError("Password is required");
+                    editPassword.setError("Password is required");
                     return;
                 }
 
                 if (password.length() < 6) {
-                    editEmail.setError("Password must be >= 6 characters.");
+                    editPassword.setError("Password must be at least 6 characters.");
                     return;
                 }
-
-
 
                 progressBar.setVisibility(View.VISIBLE);
                 // register user

@@ -204,23 +204,26 @@ public class ViewRecipeActivity extends AppCompatActivity {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 User user = documentSnapshot.toObject(User.class);
                 List<String> ratedRecipes = user.getRatedRecipes();
-                if (ratedRecipes.contains(recipeID)) {
-                    submitRatingButton.setVisibility(View.INVISIBLE);
-                } else {
-                    submitRatingButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            submitRatingButton.setVisibility(View.INVISIBLE);
-                            RatingBar ratingBar = findViewById(R.id.recipe_rating_bar);
-                            int newRating = (int) ratingBar.getRating();
-                            int ratingCount = r.getRatingCount();
-                            ratingCount++;
-                            recipeDocRef.update("rating", (recipeRating + newRating));
-                            recipeDocRef.update("ratingCount", ratingCount);
-                            userDocRef.update("ratedRecipes", FieldValue.arrayUnion(recipeID));
-                        }
-                    });
+                if (recipeID != null) {
+                    if (ratedRecipes.contains(recipeID)) {
+                        submitRatingButton.setVisibility(View.INVISIBLE);
+                    } else {
+                        submitRatingButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                submitRatingButton.setVisibility(View.INVISIBLE);
+                                RatingBar ratingBar = findViewById(R.id.recipe_rating_bar);
+                                int newRating = (int) ratingBar.getRating();
+                                int ratingCount = r.getRatingCount();
+                                ratingCount++;
+                                recipeDocRef.update("rating", (recipeRating + newRating));
+                                recipeDocRef.update("ratingCount", ratingCount);
+                                userDocRef.update("ratedRecipes", FieldValue.arrayUnion(recipeID));
+                            }
+                        });
+                    }
                 }
+
             }
         });
     }
